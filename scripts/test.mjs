@@ -39,6 +39,32 @@ for (const exhibit of manifest.languages) {
   assert.match(source, /TRENT/, `${exhibit.name} forgot who we are`);
 }
 
+const gitattributes = fs.readFileSync(".gitattributes", "utf8");
+assert.match(gitattributes, /whoami_algol58\.alg linguist-language=ALGOL/);
+assert.match(gitattributes, /whoami_algol60\.algol linguist-language=ALGOL/);
+assert.match(gitattributes, /whoami_algol_w\.algw linguist-language=ALGOL/);
+
+const xslt = fs.readFileSync("languages/whoami.xsl", "utf8");
+assert.match(xslt, /<xsl:output method="text"/i, "XSLT must serialize exactly as text");
+
+const opencl = fs.readFileSync("languages/whoami_opencl.cl", "utf8");
+assert.match(opencl, /get_global_id\(0\)/, "OpenCL exhibit must assign work by work-item id");
+assert.match(opencl, /if \(i < 5\)/, "OpenCL exhibit must bound writes to the five-character payload");
+
+const machineCode = fs.readFileSync("languages/whoami_machine_code.hex", "utf8");
+assert.match(
+  machineCode,
+  /A9 14 8D 00 04 A9 12 8D 01 04 A9 05 8D 02 04 A9 0E 8D 03 04 A9 14 8D 04 04 60/,
+  "6502 exhibit must use C64 screen codes for TRENT",
+);
+
+const unrealScript = fs.readFileSync("languages/whoami_unrealscript.uc", "utf8");
+assert.match(
+  unrealScript,
+  /^class whoami_unrealscript extends Object;/m,
+  "UnrealScript class must match the source basename",
+);
+
 const reconstructed = path.join(os.tmpdir(), `whoami-18437-${process.pid}.md`);
 try {
   execFileSync(process.execPath, ["scripts/extract-transcript.mjs", reconstructed], {
@@ -55,3 +81,4 @@ console.log("PASS: generated transcript reconstruction is git-ignored");
 console.log("PASS: editorial cut provenance is explicit");
 console.log("PASS: 71 polyglot exhibits still return TRENT");
 console.log("PASS: PR #3 added 44 more languages because 27 more was still not enough");
+console.log("PASS: Codex polyglot review regressions are pinned");
