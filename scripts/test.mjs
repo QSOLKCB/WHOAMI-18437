@@ -26,9 +26,14 @@ assert.match(minimal, /LDA #"T"/);
 
 const manifest = JSON.parse(fs.readFileSync("languages/manifest.json", "utf8"));
 assert.equal(manifest.invariant, "TRENT", "polyglot invariant changed");
-assert.equal(manifest.requested_language_count, 27, "polyglot exhibit count changed");
-assert.equal(manifest.languages.length, 27, "polyglot manifest must contain all requested languages");
+assert.equal(manifest.requested_language_count, 71, "polyglot exhibit count changed");
+assert.equal(manifest.languages.length, 71, "polyglot manifest must contain every exhibit");
+assert.equal(manifest.waves.find((wave) => wave.pr === 3)?.count, 44, "PR #3 language wave changed");
+
+const seenPaths = new Set();
 for (const exhibit of manifest.languages) {
+  assert.ok(!seenPaths.has(exhibit.path), `duplicate polyglot path: ${exhibit.path}`);
+  seenPaths.add(exhibit.path);
   assert.ok(fs.existsSync(exhibit.path), `missing ${exhibit.name} exhibit: ${exhibit.path}`);
   const source = fs.readFileSync(exhibit.path, "utf8");
   assert.match(source, /TRENT/, `${exhibit.name} forgot who we are`);
@@ -48,4 +53,5 @@ console.log("PASS: Trent = Trent");
 console.log("PASS: transcript archive matches canonical SHA-256");
 console.log("PASS: generated transcript reconstruction is git-ignored");
 console.log("PASS: editorial cut provenance is explicit");
-console.log("PASS: 27 additional programming languages still return TRENT");
+console.log("PASS: 71 polyglot exhibits still return TRENT");
+console.log("PASS: PR #3 added 44 more languages because 27 more was still not enough");
