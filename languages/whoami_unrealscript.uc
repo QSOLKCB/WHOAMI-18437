@@ -1,4 +1,4 @@
-class Whoami extends Object;
+class whoami_unrealscript extends Object;
 
 static function string Resolve()
 {
