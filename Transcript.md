@@ -15,13 +15,25 @@ Reconstruct the full readable Markdown transcript with:
 npm run transcript:extract
 ```
 
-That writes `Transcript.full.md` and refuses to succeed unless the reconstructed source matches this SHA-256:
+That writes the generated `Transcript.full.md`, which is intentionally ignored by Git, and refuses to succeed unless the reconstructed source matches this SHA-256:
 
 ```text
 3ba8e2b5bd5b6835ab41cbd6081761aadab82eea8405ae7ee7e6e59d09c96e8a
 ```
 
-The archive preserves the conversation's wording, including jokes, model self-descriptions, pseudo-system structures, malformed/cursed code, and internal commentary. Preservation does **not** imply that every claim appearing in the conversation is independently verified.
+The archive preserves the supplied artifact's wording, including jokes, model self-descriptions, pseudo-system structures, malformed/cursed code, and internal commentary. Preservation does **not** imply that every claim appearing in the conversation is independently verified.
+
+## Editorial provenance
+
+The supplied artifact is intentionally edited for comedic pacing rather than presented as a byte-for-byte export of every message in the original conversation.
+
+One brief assistant detour was removed before archival capture: after misreading “make a model look like me” as an image-generation request, the assistant asked the user to upload a photo. The exchange was cut because it interrupted the timing and flow of the WHOAMI-18437 joke.
+
+No claim is made that this archive contains every original turn. The SHA-256 above authenticates the **exact supplied transcript artifact** preserved by this repository. The editorial cut does not change the identity sequence, cursed-architecture escalation, or final invariant:
+
+```text
+Trent = Trent
+```
 
 ## Narrative index
 
