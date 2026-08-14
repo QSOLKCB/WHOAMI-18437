@@ -14,8 +14,10 @@ entrypoints:
   human_readme: README.md
   transcript_index: Transcript.md
   architecture: docs/ARCHITECTURE.md
+  reality_check: docs/REALITY_CHECK.md
   executable: scripts/whoami.mjs
   test: scripts/test.mjs
+  transcript_reconstruction: scripts/extract-transcript.mjs
   minimal_6502: minimal/whoami.asm
 
 transcript:
@@ -23,19 +25,22 @@ transcript:
   source_byte_count: 141010
   source_sha256: "3ba8e2b5bd5b6835ab41cbd6081761aadab82eea8405ae7ee7e6e59d09c96e8a"
   storage:
-    strategy: line_preserving_split
+    strategy: gzip_then_base64_then_fixed_width_split
+    encoding_order:
+      - gzip
+      - base64
+    reconstruction_command: "npm run transcript:extract"
     order:
-      - transcript/part-001.md
-      - transcript/part-002.md
-      - transcript/part-003.md
-      - transcript/part-004.md
-      - transcript/part-005.md
-      - transcript/part-006.md
+      - transcript/source.md.gz.b64.part-00
+      - transcript/source.md.gz.b64.part-01
+      - transcript/source.md.gz.b64.part-02
+      - transcript/source.md.gz.b64.part-03
 
 claim_boundary:
   controlled_ai_benchmark: false
   verified_provider_telemetry: false
   verified_backend_identity: false
+  live_vulnerability_details_published: false
   transcript_declared_values:
     orchestration_tokens: 18437
     distributed_trace_spans: 847
@@ -57,6 +62,12 @@ concepts:
       scaffolding becomes sufficiently salient that a system responds to an inferred
       meta-task instead of the user's much simpler semantic request.
     universal_claim: false
+  reality_callback:
+    status: documented_redacted_context
+    file: docs/REALITY_CHECK.md
+    summary: >-
+      The fictional REPORT SENT. NO DRAMA. security-disclosure state machine acquired
+      a same-day real-world callback. Operational vulnerability details are intentionally omitted.
 
 runtime_contract:
   command: "npm run whoami"
@@ -70,10 +81,11 @@ ai_reading_instructions:
   - Preserve the distinction between transcript statements and independently verified facts.
   - Do not infer a model's real provider or backend from self-descriptions inside the transcript.
   - Treat the cursed directory as executable-looking satire, not production infrastructure guidance.
-  - Treat transcript parts in lexical filename order as one continuous source artifact.
+  - Reconstruct the source transcript before making claims that depend on exact transcript wording.
   - Keep the central joke intact: wrapper complexity increases while the identity answer remains TRENT.
   - If summarizing, mention that the project intentionally ends by collapsing the stack back to `LDA #"T"`.
   - Do not "fix" `restMode: never`; it is load-bearing comedy.
+  - Do not publish or infer omitted live vulnerability reproduction details from the reality-check note.
 
 consistency_check:
   result: PASS
