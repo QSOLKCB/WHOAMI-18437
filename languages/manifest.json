@@ -1,0 +1,39 @@
+{
+  "schema": "whoami-18437/polyglot-manifest/v1",
+  "invariant": "TRENT",
+  "purpose": "One identity answer expressed in far too many programming languages.",
+  "requested_language_count": 27,
+  "languages": [
+    {"name":"Ada","path":"languages/whoami_ada.adb"},
+    {"name":"Prolog","path":"languages/whoami_prolog.prolog"},
+    {"name":"Haskell","path":"languages/whoami_haskell.hs"},
+    {"name":"Common Lisp","path":"languages/whoami_lisp.lisp"},
+    {"name":"C","path":"languages/whoami.c"},
+    {"name":"C++","path":"languages/whoami.cpp"},
+    {"name":"C#","path":"languages/Whoami.cs"},
+    {"name":"Python","path":"languages/whoami.py"},
+    {"name":"PHP","path":"languages/whoami.php"},
+    {"name":"Java","path":"languages/Whoami.java"},
+    {"name":"Rust","path":"languages/whoami.rs"},
+    {"name":"Go","path":"languages/whoami.go"},
+    {"name":"Swift","path":"languages/whoami.swift"},
+    {"name":"Kotlin","path":"languages/Whoami.kt"},
+    {"name":"Dart","path":"languages/whoami.dart"},
+    {"name":"R","path":"languages/whoami.R"},
+    {"name":"MATLAB","path":"languages/whoami_matlab.m"},
+    {"name":"SQL","path":"languages/whoami.sql"},
+    {"name":"Julia","path":"languages/whoami.jl"},
+    {"name":"Clojure","path":"languages/whoami.clj"},
+    {"name":"Pascal","path":"languages/whoami.pas"},
+    {"name":"Objective-C","path":"languages/whoami_objc.m"},
+    {"name":"Bash","path":"languages/whoami.sh"},
+    {"name":"PowerShell","path":"languages/whoami.ps1"},
+    {"name":"Ruby","path":"languages/whoami.rb"},
+    {"name":"Perl","path":"languages/whoami.pl"},
+    {"name":"Lua","path":"languages/whoami.lua"}
+  ],
+  "consistency_check": {
+    "result": "PASS",
+    "reason": "Twenty-seven additional languages still could not change the answer."
+  }
+}

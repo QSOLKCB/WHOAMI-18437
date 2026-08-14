@@ -24,6 +24,16 @@ assert.match(gitignore, /^Transcript\.full\.md$/m, "generated transcript output 
 const minimal = fs.readFileSync("minimal/whoami.asm", "utf8");
 assert.match(minimal, /LDA #"T"/);
 
+const manifest = JSON.parse(fs.readFileSync("languages/manifest.json", "utf8"));
+assert.equal(manifest.invariant, "TRENT", "polyglot invariant changed");
+assert.equal(manifest.requested_language_count, 27, "polyglot exhibit count changed");
+assert.equal(manifest.languages.length, 27, "polyglot manifest must contain all requested languages");
+for (const exhibit of manifest.languages) {
+  assert.ok(fs.existsSync(exhibit.path), `missing ${exhibit.name} exhibit: ${exhibit.path}`);
+  const source = fs.readFileSync(exhibit.path, "utf8");
+  assert.match(source, /TRENT/, `${exhibit.name} forgot who we are`);
+}
+
 const reconstructed = path.join(os.tmpdir(), `whoami-18437-${process.pid}.md`);
 try {
   execFileSync(process.execPath, ["scripts/extract-transcript.mjs", reconstructed], {
@@ -38,3 +48,4 @@ console.log("PASS: Trent = Trent");
 console.log("PASS: transcript archive matches canonical SHA-256");
 console.log("PASS: generated transcript reconstruction is git-ignored");
 console.log("PASS: editorial cut provenance is explicit");
+console.log("PASS: 27 additional programming languages still return TRENT");

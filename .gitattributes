@@ -1,0 +1,3 @@
+# GitHub Linguist needs help because both MATLAB and Objective-C insist on .m.
+languages/whoami_matlab.m linguist-language=MATLAB
+languages/whoami_objc.m linguist-language=Objective-C
