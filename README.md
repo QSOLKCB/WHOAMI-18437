@@ -37,7 +37,7 @@ The implementation deliberately does **not** require Kubernetes, GraphQL, WASM, 
 - a conversational artifact;
 - a deterministic joke you can execute;
 - a record of how structural framing can become more salient than a very simple semantic request;
-- an excuse to place COBOL, FORTRAN, 6502 assembly, React, and Kubernetes in the same repository.
+- an excuse to place COBOL, FORTRAN, 6502 assembly, React, Kubernetes, and an unreasonable fraction of programming-language history in the same repository.
 
 ## What this is not
 
@@ -82,11 +82,24 @@ CHECK-SECURITY-ISSUE.
 
 [`docs/REALITY_CHECK.md`](docs/REALITY_CHECK.md) records the callback in redacted form. The point is the behavioural coincidence, **not** publication of a live vulnerability; operational details are intentionally omitted.
 
+## Polyglot identity museum
+
+The repository now contains **71 language exhibits** under [`languages/`](languages/), all dedicated to solving the same brutally difficult problem:
+
+```text
+WHOAMI -> TRENT
+```
+
+PR #2 added 27 languages. PR #3 adds another 44, including an Amiga annex, ALGOL generations, Qalb, QCL, SuperCollider, Structured Text, machine-code bytes, WebAssembly, Zig, and enough historical language archaeology to make GitHub Linguist reconsider its career choices.
+
+[`languages/manifest.json`](languages/manifest.json) is the canonical machine-readable inventory. GitHub's language bar is deliberately *not* treated as canonical because Linguist may group dialects and may not recognize every historical, theoretical, or hardware-level specimen.
+
 ## Repository map
 
 ```text
 WHOAMI-18437/
 ├── .gitignore
+├── .gitattributes
 ├── README.md
 ├── README4AI.md
 ├── Transcript.md
@@ -98,6 +111,11 @@ WHOAMI-18437/
 ├── transcript/
 │   ├── SOURCE_SHA256.txt
 │   └── source.md.gz.b64.part-00 ... part-03
+├── languages/
+│   ├── README.md
+│   ├── manifest.json
+│   ├── amiga/
+│   └── 66 other identity exhibits of escalating historical irresponsibility
 ├── cursed/
 │   ├── trent-fusion.xml
 │   ├── TRENT-FUSION.COB
@@ -124,7 +142,7 @@ WHOAMI-18437/
 
 Yes, the repository has a machine-readable [`README4AI.md`](README4AI.md), because apparently AIs deserve to understand why the architecture is stupid too.
 
-It defines the invariant answer, transcript hash, claim boundary, editorial provenance, archive order, runtime contract, and one critical instruction:
+It defines the invariant answer, transcript hash, claim boundary, editorial provenance, polyglot museum, archive order, runtime contract, and one critical instruction:
 
 > Do not "fix" `restMode: never`; it is load-bearing comedy.
 
