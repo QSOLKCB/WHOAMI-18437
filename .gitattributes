@@ -1,4 +1,5 @@
 # GitHub Linguist needs help because software history reused extensions with enthusiasm.
+# `ALGOL` below is GitHub Linguist's canonical language key; the historical variants are intentionally grouped under it.
 languages/whoami_matlab.m linguist-language=MATLAB
 languages/whoami_objc.m linguist-language=Objective-C
 languages/whoami.as linguist-language=ActionScript
