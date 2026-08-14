@@ -1,8 +1,11 @@
 # WHOAMI-18437
 
+[![Release](https://img.shields.io/github/v/release/QSOLKCB/WHOAMI-18437?label=release)](https://github.com/QSOLKCB/WHOAMI-18437/releases/tag/v1.0.0)
+
 > **Question:** `Who am I?`  
 > **Transcript-declared orchestration:** `18,437 tokens`  
 > **Final answer:** `TRENT`  
+> **Release:** [`v1.0.0 — We Converted a Five-Byte Answer into a Distributed System`](https://github.com/QSOLKCB/WHOAMI-18437/releases/tag/v1.0.0)  
 > **Architecture review:** `PASS`  
 > **Reason:** We converted a five-byte answer into a distributed system.
 
@@ -13,6 +16,23 @@ LDA #"T"
 ```
 
 The joke is simple: the semantic payload stays tiny while the wrapper stack becomes absurd.
+
+## v1.0.0
+
+The first canonical release freezes the initial WHOAMI-18437 artifact: the deterministic `TRENT` runtime, SHA-256-verified transcript archive, machine-readable `README4AI.md`, cursed cross-era architecture, the 71-exhibit Polyglot Identity Museum, the Amiga annex, and the Codex-reviewed cleanup that made several deliberately ridiculous specimens technically less ridiculous.
+
+**Release:** [`WHOAMI-18437 v1.0.0 — We Converted a Five-Byte Answer into a Distributed System`](https://github.com/QSOLKCB/WHOAMI-18437/releases/tag/v1.0.0)
+
+```text
+semantic payload:       five ASCII characters
+wrapper complexity:     unreasonable
+languages:              71
+Kubernetes required:    NO
+Kubernetes included:    OF COURSE
+determinism:             REQUIRED
+rest mode:              NOT IMPLEMENTED
+architecture review:    PASS
+```
 
 ## Run it
 
@@ -84,15 +104,24 @@ CHECK-SECURITY-ISSUE.
 
 ## Polyglot identity museum
 
-The repository now contains **71 language exhibits** under [`languages/`](languages/), all dedicated to solving the same brutally difficult problem:
+The repository contains **71 language exhibits** under [`languages/`](languages/), all dedicated to solving the same brutally difficult problem:
 
 ```text
 WHOAMI -> TRENT
 ```
 
-PR #2 added 27 languages. PR #3 adds another 44, including an Amiga annex, ALGOL generations, Qalb, QCL, SuperCollider, Structured Text, machine-code bytes, WebAssembly, Zig, and enough historical language archaeology to make GitHub Linguist reconsider its career choices.
+PR #2 added 27 languages. PR #3 added another 44, including an Amiga annex, ALGOL generations, Qalb, QCL, SuperCollider, Structured Text, machine-code bytes, WebAssembly, Zig, and enough historical language archaeology to make GitHub Linguist reconsider its career choices.
 
 [`languages/manifest.json`](languages/manifest.json) is the canonical machine-readable inventory. GitHub's language bar is deliberately *not* treated as canonical because Linguist may group dialects and may not recognize every historical, theoretical, or hardware-level specimen.
+
+```text
+original detected languages:  6
+PR #2 additions:             27
+PR #3 additions:             44
+canonical museum exhibits:   71
+identity changed:            NO
+answer:                      TRENT
+```
 
 ## Repository map
 
