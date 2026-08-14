@@ -55,7 +55,7 @@ The supplied source log is preserved losslessly as a gzip → base64 archive spl
 npm run transcript:extract
 ```
 
-Canonical source metadata:
+Canonical supplied-artifact metadata:
 
 ```text
 lines: 2790
@@ -63,7 +63,9 @@ bytes: 141010
 sha256: 3ba8e2b5bd5b6835ab41cbd6081761aadab82eea8405ae7ee7e6e59d09c96e8a
 ```
 
-The extraction script verifies that SHA-256 before writing `Transcript.full.md`.
+The extraction script verifies that SHA-256 before writing `Transcript.full.md`; the generated reconstruction is ignored by Git so the standard extraction workflow leaves the working tree clean.
+
+The archive is exact **as supplied**, not claimed to be an unedited export of every original conversation turn. One brief assistant detour asking for a photo was intentionally removed before archival capture because it broke the comedic timing. [`Transcript.md`](Transcript.md) records that editorial provenance explicitly.
 
 ## Reality check
 
@@ -84,6 +86,7 @@ CHECK-SECURITY-ISSUE.
 
 ```text
 WHOAMI-18437/
+├── .gitignore
 ├── README.md
 ├── README4AI.md
 ├── Transcript.md
@@ -121,7 +124,7 @@ WHOAMI-18437/
 
 Yes, the repository has a machine-readable [`README4AI.md`](README4AI.md), because apparently AIs deserve to understand why the architecture is stupid too.
 
-It defines the invariant answer, transcript hash, claim boundary, archive order, runtime contract, and one critical instruction:
+It defines the invariant answer, transcript hash, claim boundary, editorial provenance, archive order, runtime contract, and one critical instruction:
 
 > Do not "fix" `restMode: never`; it is load-bearing comedy.
 
