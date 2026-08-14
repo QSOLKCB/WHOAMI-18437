@@ -24,12 +24,31 @@ transcript:
   source_line_count: 2790
   source_byte_count: 141010
   source_sha256: "3ba8e2b5bd5b6835ab41cbd6081761aadab82eea8405ae7ee7e6e59d09c96e8a"
+  sha256_scope: exact_supplied_artifact
+  complete_original_conversation: false
+  preservation: exact_as_supplied
+  editorial_cuts:
+    count: 1
+    items:
+      - type: non_substantive_assistant_detour
+        summary: >-
+          The assistant briefly interpreted "make a model look like me" as an
+          image-generation request and asked the user to upload a photo.
+        reason: >-
+          Removed by the user before archival capture because it disrupted the
+          comedic flow and timing of the WHOAMI-18437 sequence.
+        substantive_effect: none
+        affects_identity_sequence: false
+        affects_cursed_architecture: false
+        affects_final_invariant: false
   storage:
     strategy: gzip_then_base64_then_fixed_width_split
     encoding_order:
       - gzip
       - base64
     reconstruction_command: "npm run transcript:extract"
+    generated_output: Transcript.full.md
+    generated_output_git_ignored: true
     order:
       - transcript/source.md.gz.b64.part-00
       - transcript/source.md.gz.b64.part-01
@@ -79,6 +98,8 @@ runtime_contract:
 
 ai_reading_instructions:
   - Preserve the distinction between transcript statements and independently verified facts.
+  - Treat the SHA-256 as authenticating the exact supplied artifact, not an unedited export of every original conversation turn.
+  - Preserve the editorial-cut rationale as comedic pacing, not substantive redaction.
   - Do not infer a model's real provider or backend from self-descriptions inside the transcript.
   - Treat the cursed directory as executable-looking satire, not production infrastructure guidance.
   - Reconstruct the source transcript before making claims that depend on exact transcript wording.
