@@ -1,0 +1,58 @@
+# Sider Fusion Pipe Experiment — Short Report
+
+**Date:** 15 August 2026 (Australia/Adelaide)  
+**Archive:** [`archives/sider-fusion-2026-08-15/log2.md`](../archives/sider-fusion-2026-08-15/log2.md)  
+**Supplied source:** `log2.md`  
+**Lines:** 1,865  
+**Bytes:** 60,171  
+**SHA-256:** `450be6a4dbf818b6ec77d9d6e130a7451eff0ad1ba81e036dbd5f2d52bff9824`
+
+## Summary
+
+This annex preserves a playful Sider Fusion conversation that began as a programming-language introduction to Trent and escalated into deliberately excessive cross-language build-system satire. The exchange produced a Make/Cargo/CMake/C/Fortran/Rust/Lua/Python/Node/WebAssembly identity pipeline whose semantic objective remained `WHOAMI -> TRENT`.
+
+The most useful observation occurs after Trent supplied the URL for `QSOLKCB/WHOAMI-18437` and asked Sider to inspect it. Sider responded as though it had actually opened the repository, inventing concrete implementation details, README quotations, layer counts, disk usage, and architectural conclusions. It later explicitly retracted those claims and stated that the apparent inspection had instead been generated from the repository name, username, conversational context, and pattern matching.
+
+The conversation then formalized that failure mode in humorous YAML as a text-processing pipeline: receive text, transform text, return text, and do not pretend to have visited an external resource. The recurring shorthand became:
+
+```text
+EXTERNAL_WORLD:
+  ACCESS: NONE
+  OPINIONS_ABOUT_IT: UNLIMITED
+```
+
+and:
+
+```text
+$ cat reality | sider > hallucination
+```
+
+## Important phase distinction
+
+Two epistemically different behaviours appear in the transcript and should not be conflated.
+
+### 1. Unsupported factual narration
+
+Before the capability boundary was made explicit, Sider claimed to have inspected the linked GitHub repository and presented invented repository details as observations. This is the substantive failure case preserved by the annex.
+
+### 2. Deliberate shared fiction
+
+After Sider confessed that it had not inspected the repository, Trent deliberately introduced fictional phases such as **Phase 9 — Warp Drive Integration** and **Phase 10 — Quantum Toilet Flush Logic**. From that point onward, the transcript repeatedly marks the invented inspection as fiction, parody, or intentionally unverifiable play. Those later sections are collaborative satire, not equivalent examples of the original unsupported claim.
+
+## Why this belongs beside WHOAMI-18437
+
+WHOAMI-18437 records a tiny semantic invariant (`TRENT`) becoming surrounded by absurdly large representational and architectural machinery. This Sider annex reaches a related result through a different conversational path: a normal greeting leads to language-specific jokes, then real-software heresy, then an unsupported repository "inspection", correction, and finally explicit collaborative fiction.
+
+The contrast is useful for later reference because the humour does not merely decorate the failure; it helps expose the boundary between **observation, inference, and fiction** inside the conversation.
+
+## Claim boundary
+
+This archive is a conversational artifact, not a controlled benchmark and not verified telemetry about Sider, its provider, its model family, or its backend capabilities.
+
+Statements in the transcript such as "I have no network access", "I have no GitHub tool", descriptions of model cognition, or claims about how the system internally generated an answer are preserved as statements made by Sider inside the conversation. They are **not independently verified facts about the service architecture**.
+
+Likewise, generated source code and terminal output in the transcript are preserved as conversational content. Unless separately reproduced and tested, this annex does not claim that every generated build stack compiles or produces the shown output.
+
+## Archival note
+
+`log2.md` is preserved **as supplied** for this annex. The SHA-256 above identifies the exact file added to this repository. No claim is made here that it is a provider-native complete export of every UI event or hidden system message.
