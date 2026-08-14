@@ -1,30 +1,27 @@
 # Transcript
 
-This file is the archival entry point for the conversation that became WHOAMI-18437.
+This file is the human-readable archival entry point for the conversation that became WHOAMI-18437.
 
-The supplied source log is **2,790 lines / 141,010 bytes**. To preserve it without turning this single Markdown page into the entire internet, it is stored as six line-preserving parts:
+The supplied source log is **2,790 lines / 141,010 bytes**. The exact UTF-8 source is preserved losslessly as a gzip → base64 archive split into four repository-friendly text parts:
 
-1. [`transcript/part-001.md`](transcript/part-001.md) — source lines 1-465
-2. [`transcript/part-002.md`](transcript/part-002.md) — source lines 466-930
-3. [`transcript/part-003.md`](transcript/part-003.md) — source lines 931-1395
-4. [`transcript/part-004.md`](transcript/part-004.md) — source lines 1396-1860
-5. [`transcript/part-005.md`](transcript/part-005.md) — source lines 1861-2325
-6. [`transcript/part-006.md`](transcript/part-006.md) — source lines 2326-2790
+1. [`transcript/source.md.gz.b64.part-00`](transcript/source.md.gz.b64.part-00)
+2. [`transcript/source.md.gz.b64.part-01`](transcript/source.md.gz.b64.part-01)
+3. [`transcript/source.md.gz.b64.part-02`](transcript/source.md.gz.b64.part-02)
+4. [`transcript/source.md.gz.b64.part-03`](transcript/source.md.gz.b64.part-03)
 
-Reconstruction:
+Reconstruct the full readable Markdown transcript with:
 
 ```bash
-cat transcript/part-*.md > reconstructed.md
-sha256sum reconstructed.md
+npm run transcript:extract
 ```
 
-Expected SHA-256 of the originally supplied log:
+That writes `Transcript.full.md` and refuses to succeed unless the reconstructed source matches this SHA-256:
 
 ```text
 3ba8e2b5bd5b6835ab41cbd6081761aadab82eea8405ae7ee7e6e59d09c96e8a
 ```
 
-The split files intentionally preserve the conversation's original wording, including jokes, model self-descriptions, pseudo-system structures, malformed/cursed code, and internal commentary. Preservation does **not** imply that every claim appearing in the conversation is independently verified.
+The archive preserves the conversation's wording, including jokes, model self-descriptions, pseudo-system structures, malformed/cursed code, and internal commentary. Preservation does **not** imply that every claim appearing in the conversation is independently verified.
 
 ## Narrative index
 
@@ -44,5 +41,11 @@ And then the entire stack collapses to:
 ```asm
 LDA #"T"
 ```
+
+## The reality callback
+
+One part of the personality kernel became funnier because the same-day real world supplied a matching behaviour: a security issue was responsibly disclosed without mixing it into an unrelated suspension dispute.
+
+The public repository preserves that callback in a deliberately redacted form at [`docs/REALITY_CHECK.md`](docs/REALITY_CHECK.md). Live vulnerability reproduction details are not part of this joke archive.
 
 No Kubernetes required.
