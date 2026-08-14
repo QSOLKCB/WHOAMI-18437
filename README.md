@@ -47,9 +47,15 @@ Likewise, model-family or backend self-descriptions appearing in the transcript 
 
 ## Transcript
 
-[`Transcript.md`](Transcript.md) is the archival entry point. The source conversation is preserved as a line-preserving six-part split under [`transcript/`](transcript/) because the original log is large.
+[`Transcript.md`](Transcript.md) is the human-readable archival entry point.
 
-Canonical source metadata for the supplied log:
+The supplied source log is preserved losslessly as a gzip → base64 archive split into four text files under [`transcript/`](transcript/). Reconstruct it with:
+
+```bash
+npm run transcript:extract
+```
+
+Canonical source metadata:
 
 ```text
 lines: 2790
@@ -57,7 +63,22 @@ bytes: 141010
 sha256: 3ba8e2b5bd5b6835ab41cbd6081761aadab82eea8405ae7ee7e6e59d09c96e8a
 ```
 
-The split is purely for repository handling; concatenate `transcript/part-001.md` through `part-006.md` in lexical order to reconstruct the supplied source text.
+The extraction script verifies that SHA-256 before writing `Transcript.full.md`.
+
+## Reality check
+
+Because the universe apparently wanted to participate in the joke, the fictional security routine acquired a same-day real-world callback:
+
+```cobol
+CHECK-SECURITY-ISSUE.
+    IF SECURITY-ISSUE = TRUE
+        MOVE "RESPONSIBLY DISCLOSE" TO CURRENT-ACTION
+        MOVE ZERO TO BAN-APPEAL-FLAG
+        DISPLAY "REPORT SENT. NO DRAMA."
+    END-IF.
+```
+
+[`docs/REALITY_CHECK.md`](docs/REALITY_CHECK.md) records the callback in redacted form. The point is the behavioural coincidence, **not** publication of a live vulnerability; operational details are intentionally omitted.
 
 ## Repository map
 
@@ -69,10 +90,11 @@ WHOAMI-18437/
 ├── package.json
 ├── scripts/
 │   ├── whoami.mjs
-│   └── test.mjs
+│   ├── test.mjs
+│   └── extract-transcript.mjs
 ├── transcript/
 │   ├── SOURCE_SHA256.txt
-│   └── part-001.md ... part-006.md
+│   └── source.md.gz.b64.part-00 ... part-03
 ├── cursed/
 │   ├── trent-fusion.xml
 │   ├── TRENT-FUSION.COB
@@ -89,10 +111,19 @@ WHOAMI-18437/
 ├── minimal/
 │   └── whoami.asm
 ├── docs/
-│   └── ARCHITECTURE.md
+│   ├── ARCHITECTURE.md
+│   └── REALITY_CHECK.md
 └── .github/workflows/
     └── ci.yml
 ```
+
+## README4AI
+
+Yes, the repository has a machine-readable [`README4AI.md`](README4AI.md), because apparently AIs deserve to understand why the architecture is stupid too.
+
+It defines the invariant answer, transcript hash, claim boundary, archive order, runtime contract, and one critical instruction:
+
+> Do not "fix" `restMode: never`; it is load-bearing comedy.
 
 ## The invariant
 
@@ -105,8 +136,8 @@ Trent = Trent
 Or, in the spirit of the transcript:
 
 ```lean
- theorem trent_is_trent : Trent = Trent := by
-   rfl
+theorem trent_is_trent : Trent = Trent := by
+  rfl
 ```
 
 ## Design rule
