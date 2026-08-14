@@ -1,7 +1,7 @@
 # Sider Fusion Pipe Experiment — Short Report
 
 **Date:** 15 August 2026 (Australia/Adelaide)  
-**Archive:** [`archives/sider-fusion-2026-08-15/log2.md`](../archives/sider-fusion-2026-08-15/log2.md)  
+**Archive:** [`archives/sider-fusion-2026-08-15/`](../archives/sider-fusion-2026-08-15/)  
 **Supplied source:** `log2.md`  
 **Lines:** 1,865  
 **Bytes:** 60,171  
@@ -55,4 +55,4 @@ Likewise, generated source code and terminal output in the transcript are preser
 
 ## Archival note
 
-`log2.md` is preserved **as supplied** for this annex. The SHA-256 above identifies the exact file added to this repository. No claim is made here that it is a provider-native complete export of every UI event or hidden system message.
+The supplied `log2.md` is preserved losslessly as deterministic gzip → base64 split across five text parts. Reconstruction was checked byte-for-byte against the supplied source before this PR was opened; the SHA-256 above identifies the reconstructed archival source. No claim is made here that it is a provider-native complete export of every UI event or hidden system message.
