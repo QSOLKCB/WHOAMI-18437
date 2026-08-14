@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trent-fusion
+  labels:
+    architecture: questionable
+spec:
+  replicas: 8
+  selector:
+    matchLabels:
+      app: trent-fusion
+  template:
+    metadata:
+      labels:
+        app: trent-fusion
+    spec:
+      containers:
+        - name: trent
+          image: qsol/trent-fusion:v1983.0.0
+          env:
+            - name: MODEL_FAMILY
+              value: "TRENT"
+            - name: DETERMINISTIC
+              value: "TRUE"
+            - name: CPU_ARCHITECTURE
+              value: "MOS6502"
+            - name: ACTUAL_CPU_ARCHITECTURE
+              value: "AMD64"
+            - name: IGNORE_ACTUAL_CPU_ARCHITECTURE
+              value: "TRUE"
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: trent-fusion-autoscaler
+spec:
+  minReplicas: 8
+  maxReplicas: 240
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: trent-fusion
+  metrics:
+    - type: External
+      external:
+        metric:
+          name: new_ideas_per_second
+        target:
+          type: AverageValue
+          averageValue: "0.1"

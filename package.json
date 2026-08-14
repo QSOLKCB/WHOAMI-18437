@@ -1,0 +1,17 @@
+{
+  "name": "whoami-18437",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Executable software satire: 18,437 tokens of orchestration to return TRENT.",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20",
+    "mos6502": "exactly 1 MHz emotionally"
+  },
+  "scripts": {
+    "whoami": "node scripts/whoami.mjs",
+    "transcript:extract": "node scripts/extract-transcript.mjs",
+    "test": "node scripts/test.mjs"
+  }
+}

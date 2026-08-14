@@ -1,0 +1,25 @@
+services:
+  frontend:
+    image: qsol/trent-dashboard:probably-fine
+    depends_on:
+      - api
+      - biological-runtime
+
+  api:
+    image: qsol/trent-api:probably-fine
+    environment:
+      TRENT_DETERMINISM: "MANDATORY"
+      TRENT_SARCASM_LEVEL: "87"
+      TRENT_CREATE_REPO_ON_IDEA: "true"
+      TRENT_REST_MODE: "false"
+      LEGACY_FORTRAN_ENDPOINT: "fortran:1957"
+      LEGACY_COBOL_ENDPOINT: "cobol:1959"
+      MOS6502_BUS_ADDRESS: "0xD000"
+
+  biological-runtime:
+    image: qsol/trent:v1983
+    restart: unless-stopped
+
+  redis:
+    image: redis:8
+    # Nobody knows what Redis is doing here.

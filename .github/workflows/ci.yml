@@ -1,0 +1,28 @@
+name: WHOAMI deterministic check
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  whoami:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm test
+      - name: Diff Trent against Trent
+        run: |
+          npm run whoami -- --quiet > run1.txt
+          npm run whoami -- --quiet > run2.txt
+          diff -u run1.txt run2.txt
+      - name: Enterprise readiness
+        run: |
+          echo "Does it use Kubernetes? In cursed/, yes."
+          echo "Does it need Kubernetes? No."
+          echo "STATUS: ENTERPRISE READY"
