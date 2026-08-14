@@ -1,4 +1,4 @@
-# WHOAMI-18437 / 6502 machine-code bytes
-# Writes TRENT to $0400-$0404 then RTS.
-A9 54 8D 00 04 A9 52 8D 01 04 A9 45 8D 02 04 A9 4E 8D 03 04 A9 54 8D 04 04 60
-# ASCII: TRENT
+# WHOAMI-18437 / 6502 machine-code bytes for Commodore 64 screen RAM
+# Writes C64 screen codes for TRENT to $0400-$0404, then RTS.
+A9 14 8D 00 04 A9 12 8D 01 04 A9 05 8D 02 04 A9 0E 8D 03 04 A9 14 8D 04 04 60
+# C64 screen codes: T=14 R=12 E=05 N=0E T=14 -> TRENT
