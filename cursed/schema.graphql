@@ -1,0 +1,26 @@
+type Trent {
+  identity: String!
+  determinism: Boolean!
+  sarcasm: Int!
+  repositories: Int!
+  restMode: String
+}
+
+type Query {
+  whoAmI: Trent!
+  shouldCreateAnotherRepository: Boolean!
+}
+
+type Mutation {
+  createRepository(reason: String = "minor idea"): Repository!
+  sonifyEverything(input: String!): WAV!
+}
+
+type Repository {
+  name: String!
+  formalSpecification: Boolean!
+  githubActions: Boolean!
+  zenodoDOI: String
+}
+
+scalar WAV
