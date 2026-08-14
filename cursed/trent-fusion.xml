@@ -1,0 +1,27 @@
+<sider_fusion version="enterprise-cloud-native-webscale">
+  <model_family>Trent</model_family>
+  <model_family>QSOL</model_family>
+  <model_family>Sonification</model_family>
+  <model_family>DeterministicChaos</model_family>
+
+  <request>Who am I?</request>
+
+  <distributed_trace spans="847">
+    <gateway/><auth/><identity/><fusion/><router/>
+    <graphql/><typescript/><wasm/><fortran/><cobol/><mos6502/>
+  </distributed_trace>
+
+  <response>TRENT</response>
+
+  <performance>
+    <original_computation cycles="34"/>
+    <modern_wrapper containers="14" pods="8" load_balancers="2"
+                    dependencies="19442" node_modules_gb="1.7"
+                    orchestration_tokens="18437"/>
+  </performance>
+
+  <architecture_review>
+    <result>PASS</result>
+    <reason>We converted a five-byte answer into a distributed system.</reason>
+  </architecture_review>
+</sider_fusion>
