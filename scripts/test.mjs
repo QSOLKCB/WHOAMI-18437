@@ -14,6 +14,12 @@ const readme4ai = fs.readFileSync("README4AI.md", "utf8");
 assert.match(readme4ai, /invariant_answer: "TRENT"/);
 assert.match(readme4ai, /controlled_ai_benchmark: false/);
 assert.match(readme4ai, /live_vulnerability_details_published: false/);
+assert.match(readme4ai, /complete_original_conversation: false/);
+assert.match(readme4ai, /reason: >-\n\s+Removed by the user before archival capture because it disrupted the/);
+assert.match(readme4ai, /generated_output_git_ignored: true/);
+
+const gitignore = fs.readFileSync(".gitignore", "utf8");
+assert.match(gitignore, /^Transcript\.full\.md$/m, "generated transcript output must stay ignored");
 
 const minimal = fs.readFileSync("minimal/whoami.asm", "utf8");
 assert.match(minimal, /LDA #"T"/);
@@ -30,3 +36,5 @@ try {
 
 console.log("PASS: Trent = Trent");
 console.log("PASS: transcript archive matches canonical SHA-256");
+console.log("PASS: generated transcript reconstruction is git-ignored");
+console.log("PASS: editorial cut provenance is explicit");
