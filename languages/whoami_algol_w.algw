@@ -1,0 +1,4 @@
+begin
+  % WHOAMI-18437 / ALGOL W %
+  write("TRENT")
+end.

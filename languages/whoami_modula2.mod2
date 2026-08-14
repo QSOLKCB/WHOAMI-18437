@@ -1,0 +1,5 @@
+MODULE Whoami;
+FROM InOut IMPORT WriteString, WriteLn;
+BEGIN
+  WriteString("TRENT"); WriteLn
+END Whoami.

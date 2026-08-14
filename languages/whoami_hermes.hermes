@@ -1,0 +1,5 @@
+-- WHOAMI-18437 / Hermes
+-- Historical distributed-language museum specimen.
+process WHOAMI
+  identity := "TRENT"
+end
