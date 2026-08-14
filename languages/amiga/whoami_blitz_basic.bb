@@ -1,0 +1,2 @@
+; WHOAMI-18437 / Blitz BASIC
+Print "TRENT"

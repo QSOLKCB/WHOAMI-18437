@@ -1,0 +1,4 @@
+/* WHOAMI-18437 / C-- (museum-style specimen) */
+main() {
+    return "TRENT";
+}

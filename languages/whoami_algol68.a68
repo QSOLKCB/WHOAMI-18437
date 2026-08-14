@@ -1,0 +1,4 @@
+BEGIN
+  # WHOAMI-18437 / ALGOL 68 #
+  print(("TRENT", new line))
+END

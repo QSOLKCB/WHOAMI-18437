@@ -1,0 +1,5 @@
+MODULE Whoami EXPORTS Main;
+IMPORT IO;
+BEGIN
+  IO.Put("TRENT\n");
+END Whoami.

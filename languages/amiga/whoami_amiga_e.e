@@ -1,0 +1,4 @@
+OPT MODULE
+PROC main()
+  WriteF('TRENT\n')
+ENDPROC

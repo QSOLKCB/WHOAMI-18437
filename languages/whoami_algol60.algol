@@ -1,0 +1,4 @@
+begin
+  comment WHOAMI-18437 / ALGOL 60;
+  outstring(1, "TRENT")
+end

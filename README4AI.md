@@ -15,6 +15,8 @@ entrypoints:
   transcript_index: Transcript.md
   architecture: docs/ARCHITECTURE.md
   reality_check: docs/REALITY_CHECK.md
+  polyglot_manifest: languages/manifest.json
+  polyglot_museum: languages/README.md
   executable: scripts/whoami.mjs
   test: scripts/test.mjs
   transcript_reconstruction: scripts/extract-transcript.mjs
@@ -54,6 +56,29 @@ transcript:
       - transcript/source.md.gz.b64.part-01
       - transcript/source.md.gz.b64.part-02
       - transcript/source.md.gz.b64.part-03
+
+polyglot_museum:
+  manifest_schema: whoami-18437/polyglot-manifest/v2
+  exhibit_count: 71
+  pr2_additions: 27
+  pr3_additions: 44
+  invariant: TRENT
+  amiga_annex:
+    count: 5
+    exhibits:
+      - AmigaBASIC
+      - AMOS BASIC
+      - Blitz BASIC
+      - Amiga E
+      - ARexx
+  museum_specimen_policy: >-
+    Historical, theoretical, hardware-level, and niche entries may be represented
+    as small source specimens rather than guaranteed modern-toolchain builds.
+  linguist_policy: >-
+    GitHub Linguist may group dialects, aliases, historical variants, or unrecognized
+    source extensions under broader languages. Do not treat the language bar as the
+    canonical inventory; languages/manifest.json is authoritative for exhibit count.
+  architectural_status: "71 languages later, the answer is still TRENT."
 
 claim_boundary:
   controlled_ai_benchmark: false
@@ -103,6 +128,8 @@ ai_reading_instructions:
   - Do not infer a model's real provider or backend from self-descriptions inside the transcript.
   - Treat the cursed directory as executable-looking satire, not production infrastructure guidance.
   - Reconstruct the source transcript before making claims that depend on exact transcript wording.
+  - Treat languages/manifest.json, not the GitHub language bar, as the canonical polyglot inventory.
+  - Do not silently modernize or normalize historical/theoretical language specimens; their museum status is intentional.
   - Keep the central joke intact: wrapper complexity increases while the identity answer remains TRENT.
   - If summarizing, mention that the project intentionally ends by collapsing the stack back to `LDA #"T"`.
   - Do not "fix" `restMode: never`; it is load-bearing comedy.
@@ -110,4 +137,4 @@ ai_reading_instructions:
 
 consistency_check:
   result: PASS
-  reason: "All wrappers eventually return the same five ASCII characters."
+  reason: "All wrappers and all 71 language exhibits eventually return the same five ASCII characters."

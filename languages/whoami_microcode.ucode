@@ -1,0 +1,4 @@
+# WHOAMI-18437 / architecture-neutral illustrative microcode
+LOAD_LITERAL R0, "TRENT"
+EMIT R0
+HALT

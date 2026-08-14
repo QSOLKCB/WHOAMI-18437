@@ -1,0 +1,3 @@
+/* WHOAMI-18437 / ARexx */
+SAY 'TRENT'
+EXIT 0

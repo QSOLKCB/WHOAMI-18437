@@ -1,0 +1,4 @@
+MODULE WHOAMI;
+BEGIN
+  WriteString("TRENT")
+END WHOAMI.
