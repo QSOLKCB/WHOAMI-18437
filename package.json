@@ -11,6 +11,7 @@
   },
   "scripts": {
     "whoami": "node scripts/whoami.mjs",
+    "transcript:extract": "node scripts/extract-transcript.mjs",
     "test": "node scripts/test.mjs"
   }
 }
