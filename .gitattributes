@@ -1,3 +1,21 @@
-# GitHub Linguist needs help because both MATLAB and Objective-C insist on .m.
+# GitHub Linguist needs help because software history reused extensions with enthusiasm.
 languages/whoami_matlab.m linguist-language=MATLAB
 languages/whoami_objc.m linguist-language=Objective-C
+languages/whoami.as linguist-language=ActionScript
+languages/whoami.applescript linguist-language=AppleScript
+languages/whoami.bat linguist-language=Batchfile
+languages/whoami.cfm linguist-language=ColdFusion
+languages/amiga/whoami_blitz_basic.bb linguist-language=BlitzBasic
+languages/whoami_algol58.alg linguist-language=ALGOL
+languages/whoami_algol60.algol linguist-language=ALGOL
+languages/whoami_algol_w.algw linguist-language=ALGOL
+languages/whoami_modula.mod linguist-language=Modula-2
+languages/whoami_modula2.mod2 linguist-language=Modula-2
+languages/whoami_modula3.m3 linguist-language=Modula-3
+languages/whoami_smalltalk.st linguist-language=Smalltalk
+languages/whoami_supercollider.scd linguist-language=SuperCollider
+languages/whoami_opencl.cl linguist-language=OpenCL
+languages/whoami.wat linguist-language=WebAssembly
+languages/whoami.tex linguist-language=TeX
+languages/whoami.zig linguist-language=Zig
+languages/whoami.zsh linguist-language=Shell
