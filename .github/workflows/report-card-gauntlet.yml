@@ -31,6 +31,7 @@ on:
       - 'gauntlet/**'
       - 'scripts/gauntlet-*.mjs'
       - 'scripts/report-card-gauntlet.mjs'
+      - 'scripts/test-gauntlet.mjs'
 
 permissions:
   contents: read
@@ -47,11 +48,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Existing WHOAMI regression suite
+        run: npm test
       - name: Validate gauntlet contracts
         run: |
           node --check scripts/gauntlet-plan.mjs
           node --check scripts/report-card-gauntlet.mjs
           node --check scripts/gauntlet-aggregate.mjs
+          node --check scripts/test-gauntlet.mjs
+          node scripts/test-gauntlet.mjs
           node scripts/gauntlet-plan.mjs core >/tmp/core-matrix.txt
           node scripts/gauntlet-plan.mjs heavy >/tmp/heavy-matrix.txt
           grep -q 'qwen3-8b' /tmp/core-matrix.txt
