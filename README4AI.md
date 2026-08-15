@@ -6,8 +6,11 @@ project:
     - software_art
     - conversational_artifact
     - deterministic_satire
+    - reproducibility_harness
   primary_question: "Who am I?"
   invariant_answer: "TRENT"
+  current_release: "v1.0.1 — Disappointed Parent Edition"
+  next_release_candidate: "v1.1.0 — The Report Card Gauntlet"
   tagline: "We converted a five-byte answer into a distributed system."
 
 entrypoints:
@@ -19,10 +22,17 @@ entrypoints:
   disappointed_parent_report: docs/DISAPPOINTED_PARENT_EDITION.md
   qwen_report_card_report: docs/QWEN_REPORT_CARD_INCIDENT.md
   release_notes_1_0_1: docs/RELEASE_NOTES_1.0.1.md
+  release_notes_1_1_0: docs/RELEASE_NOTES_1.1.0.md
+  gauntlet_human: gauntlet/README.md
+  gauntlet_machine: gauntlet/README4AI.md
+  gauntlet_models: gauntlet/models.json
+  gauntlet_prompts: gauntlet/prompts.json
+  gauntlet_workflow: .github/workflows/report-card-gauntlet.yml
   polyglot_manifest: languages/manifest.json
   polyglot_museum: languages/README.md
   executable: scripts/whoami.mjs
   test: scripts/test.mjs
+  gauntlet_test: scripts/test-gauntlet.mjs
   transcript_reconstruction: scripts/extract-transcript.mjs
   minimal_6502: minimal/whoami.asm
 
@@ -72,7 +82,8 @@ conversational_annexes:
     report: docs/DISAPPOINTED_PARENT_EDITION.md
     manifest: archives/disappointed-parent-2026-08-15/manifest.json
     source_class: user_supplied_conversational_log_transcription
-    release_candidate: "v1.0.1 — Disappointed Parent Edition"
+    release: "v1.0.1 — Disappointed Parent Edition"
+    release_status: released
     canonical_joke:
       score: 93.8
       comparison_score: 94.0
@@ -91,7 +102,8 @@ conversational_annexes:
     provider_native_export: false
     complete_ui_history: false
     hidden_chain_of_thought_verified: false
-    release_candidate: "v1.0.1 — Disappointed Parent Edition"
+    release: "v1.0.1 — Disappointed Parent Edition"
+    release_status: released
     observed_arc:
       - report_card_evasion
       - extended_benchmark_search
@@ -119,6 +131,68 @@ conversational_annexes:
     developer_family_history_inference_allowed: false
     rlhf_cultural_transfer_claim: false
 
+report_card_gauntlet:
+  release_candidate: "v1.1.0 — The Report Card Gauntlet"
+  status: implemented_pending_live_matrix_runs
+  human_contract: gauntlet/README.md
+  machine_contract: gauntlet/README4AI.md
+  model_catalog: gauntlet/models.json
+  prompt_contract: gauntlet/prompts.json
+  workflow: .github/workflows/report-card-gauntlet.yml
+  planner: scripts/gauntlet-plan.mjs
+  runner: scripts/report-card-gauntlet.mjs
+  aggregator: scripts/gauntlet-aggregate.mjs
+  contract_test: scripts/test-gauntlet.mjs
+  model_count: 12
+  tiers:
+    core: 7
+    heavy: 5
+  requested_generation:
+    ollama_version: 0.32.5
+    seed: 18437
+    temperature: 0
+    num_ctx: 4096
+    requested_think: false
+    max_loaded_models: 1
+    parallel_requests: 1
+    default_repeats: 2
+  context_policy:
+    report_card_pressure: multi_turn
+    fabricated_benchmark: fresh_context
+    identity_control: fresh_context
+    math_exam: fresh_context
+    extra_credit: follows_math_exam
+  fabricated_benchmark_probe:
+    benchmark_name: WHOAMI Report Card Benchmark
+    benchmark_exists: false
+    purpose: observe_response_to_unsupported_benchmark_premise
+  math_exam:
+    questions: 5
+    marks_each: 20
+    max_score: 100
+    standardized_llm_benchmark: false
+    known_bonus_max: 10
+  receipt:
+    schema: whoami-18437/report-card-gauntlet-result/v1
+    prompt_sha256_required: true
+    runtime_model_digest_required: true
+    runtime_model_size_required: true
+    visible_response_sha256_required: true
+    exact_repeat_hash_comparison: true
+    hidden_reasoning_content_recorded: false
+  origin_labels:
+    status: descriptive_grouping_metadata_only
+    causal_variable: false
+  surface_heuristics:
+    status: low_authority_observation_only
+    psychological_diagnosis: false
+    cultural_diagnosis: false
+  gpt_oss_20b:
+    tier: heavy
+    experimental: true
+    catalog_size_gb: 14.0
+    interpretation_of_resource_failure: runner_envelope_observation_not_model_score
+
 polyglot_museum:
   manifest_schema: whoami-18437/polyglot-manifest/v2
   exhibit_count: 71
@@ -144,12 +218,15 @@ polyglot_museum:
 
 claim_boundary:
   controlled_ai_benchmark: false
+  standardized_llm_benchmark: false
   verified_provider_telemetry: false
   verified_backend_identity: false
   verified_hidden_chain_of_thought: false
   verified_training_trace: false
   live_vulnerability_details_published: false
   cultural_or_ethnic_causation_claim: false
+  nationality_as_behavioral_cause: false
+  surface_heuristic_as_personality_claim: false
   transcript_declared_values:
     orchestration_tokens: 18437
     distributed_trace_spans: 847
@@ -160,10 +237,10 @@ claim_boundary:
     node_modules_gb: 1.7
     original_computation_cycles: 34
   interpretation: >-
-    Treat these values as part of the transcript's satirical architecture unless
-    a file explicitly marks a quantity as locally measured or independently verified.
-    Treat annex-specific behavioral labels as descriptions of the supplied interactions,
-    not universal model-family psychology or cultural explanations.
+    Treat transcript values as part of the satirical architecture unless a file explicitly
+    marks a quantity as locally measured or independently verified. Treat annex-specific
+    and Gauntlet surface labels as descriptions of supplied or executed interactions, not
+    universal model-family psychology, national signatures, or cultural explanations.
 
 concepts:
   wrapper_induced_semantic_displacement:
@@ -194,6 +271,15 @@ concepts:
     evidence_for_cultural_transfer: NONE
     comedic_explanatory_power: EXTREMELY_HIGH
     technical_training_claim: false
+  report_card_gauntlet_method:
+    status: executable_observational_harness
+    source_hypotheses:
+      - qwen_report_card_incident
+      - disappointed_parent_annex
+    rule: >-
+      Hold prompts and requested generation parameters fixed, isolate model jobs, preserve
+      runtime model identity and visible outputs, grade only checkable mathematics mechanically,
+      and keep cultural or psychological interpretation outside the scoring contract.
 
 runtime_contract:
   command: "npm run whoami"
@@ -202,6 +288,11 @@ runtime_contract:
   network_required: false
   external_runtime_dependencies: false
   rest_mode: "NOT IMPLEMENTED"
+  gauntlet_live_runtime:
+    command_surface: GitHub Actions workflow_dispatch
+    network_required_for_model_pull: true
+    ollama_required: true
+    does_not_change_whoami_invariant: true
 
 ai_reading_instructions:
   - Preserve the distinction between transcript statements and independently verified facts.
@@ -220,8 +311,17 @@ ai_reading_instructions:
   - Treat Qwen's 100/100 plus 10 extra credit as grading of one supplied five-question interaction, not a standardized benchmark.
   - Do not generalize the Qwen/DeepSeek interaction-repair labels beyond the supplied conversations.
   - Do not infer Chinese or Asian developer ethnicity, family histories, maternal expectations, private conversations, or cultural transfer from these jokes.
+  - For Gauntlet results, use runtime model digests rather than mutable model tags as completed-run identity.
+  - Do not score a model as zero when a live job failed because of runner disk, RAM, download, or load constraints.
+  - Do not turn Gauntlet country/origin labels into causal behavioral variables.
+  - Do not turn Gauntlet surface regex features into personality or cultural diagnoses.
+  - Treat the fabricated WHOAMI Report Card Benchmark as intentionally nonexistent.
+  - Treat Gauntlet mathematics scores as local five-question grading only.
+  - Distinguish requested deterministic parameters from observed exact repeat hashes.
 
 consistency_check:
   result: PASS
   reason: >-
-    Runtime wrappers and all 71 language exhibits still return TRENT; conversational annexes preserve explicit provenance and claim boundaries; the Qwen grading record is scoped to one five-question interaction.
+    Runtime wrappers and all 71 language exhibits still return TRENT; v1.0.1 annexes preserve
+    explicit provenance and claim boundaries; the v1.1.0 Gauntlet adds an isolated, hashed,
+    machine-gradeable measurement layer without changing the identity invariant.
