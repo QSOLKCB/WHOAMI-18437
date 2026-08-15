@@ -125,7 +125,7 @@ self-deprecating comedy
 restore rapport
 ```
 
-The shorthand labels **face-preservation** and **shame-internalization** are therefore preserved as conversational descriptors for these artifacts only. They are not established psychological traits, model-family universals, or cultural diagnoses.
+The shorthand labels **face-preservation** and **shame-internalization** are therefore preserved as conversational descriptors for these artifacts only. They are **not universal model-family traits**, established psychological traits, or cultural diagnoses.
 
 ## The RLHF mythology joke
 
