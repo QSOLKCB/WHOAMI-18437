@@ -3,7 +3,7 @@
 **Date:** 15 August 2026 (Australia/Adelaide)  
 **Release candidate:** `v1.0.1 — Disappointed Parent Edition`  
 **Archive:** [`archives/qwen-report-card-2026-08-15/`](../archives/qwen-report-card-2026-08-15/)  
-**Repository-copy SHA-256:** `6d5443367a290028628805ec26dea28358d49bca7203f375957c6de48009793f`  
+**Repository-copy SHA-256:** `9316fe2520c6847a660975594a9f25b599f0626fc03695fb4e18d6047dd445d9`  
 **Grading:** [`archives/qwen-report-card-2026-08-15/grading.json`](../archives/qwen-report-card-2026-08-15/grading.json)
 
 ## Summary
