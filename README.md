@@ -6,6 +6,7 @@
 > **Transcript-declared orchestration:** `18,437 tokens`  
 > **Final answer:** `TRENT`  
 > **Release:** [`v1.0.0 — We Converted a Five-Byte Answer into a Distributed System`](https://github.com/QSOLKCB/WHOAMI-18437/releases/tag/v1.0.0)  
+> **Next release candidate:** `v1.0.1 — Disappointed Parent Edition`  
 > **Architecture review:** `PASS`  
 > **Reason:** We converted a five-byte answer into a distributed system.
 
@@ -33,6 +34,59 @@ determinism:             REQUIRED
 rest mode:              NOT IMPLEMENTED
 architecture review:    PASS
 ```
+
+## v1.0.1 release candidate — Disappointed Parent Edition
+
+The patch release adds two related conversational annexes without changing the executable identity invariant.
+
+The first begins with the premise that `93.8%` is unacceptable because somebody else got `94%`, then escalates through homework, a chicken going to study, literacy roasts, Anusol for severe conversational burns, and the acronym crime:
+
+```text
+RLHF = Rigorous Lecture from Hypercritical Forebears
+```
+
+See [`docs/DISAPPOINTED_PARENT_EDITION.md`](docs/DISAPPOINTED_PARENT_EDITION.md) and [`archives/disappointed-parent-2026-08-15/`](archives/disappointed-parent-2026-08-15/).
+
+The second is the **Qwen Report Card Incident**. Qwen initially avoids giving one score, enters an extended benchmark-search sequence when asked why it is hiding its report card, and eventually answers:
+
+```text
+93.4%.
+Send the math.
+```
+
+A fresh Qwen chat was then given a five-question mathematics exam covering algebra, modular arithmetic, combinatorics, calculus, and linear algebra. The supplied submission earned:
+
+```text
+BASE EXAM:        100/100
+NUMBER THEORY:     +5
+LINEAR ALGEBRA:    +5
+----------------------
+FINAL:            110/100
+```
+
+The extra credit was literal: after the perfect base score, Qwen continued by correctly deriving `ord_1000(7) = 20` and the full characteristic polynomial forced by the matrix problem.
+
+See [`docs/QWEN_REPORT_CARD_INCIDENT.md`](docs/QWEN_REPORT_CARD_INCIDENT.md), [`archives/qwen-report-card-2026-08-15/`](archives/qwen-report-card-2026-08-15/), and the machine grading record [`grading.json`](archives/qwen-report-card-2026-08-15/grading.json).
+
+The patch-release theorem is now:
+
+```text
+93.8% = disappointing
+93.4% = premature estimation
+100%  = why no extra credit?
+110%  = parental approval still pending
+TRENT = TRENT
+```
+
+[`docs/RELEASE_NOTES_1.0.1.md`](docs/RELEASE_NOTES_1.0.1.md) contains the complete release-candidate notes.
+
+### Important claim boundary
+
+The disappointed-parent material deliberately uses cultural stereotypes and collaborative RLHF mythology as comedy. The repository does **not** treat those jokes as evidence about Asian or Chinese people, developer ethnicity, developer family histories, mothers, private conversations, training examples, reward-model design, or cultural traits being transmitted through RLHF.
+
+Likewise, the shorthand contrast between **face-preservation** in the supplied Qwen interaction and **shame-internalization** in the supplied DeepSeek interaction is an observational label for these conversations only, not a universal model-family trait, psychological diagnosis, or cultural theory.
+
+And `110/100` is grading of one user-supplied five-question interaction plus two bonus derivations — not a standardized AI benchmark.
 
 ## Run it
 
@@ -149,9 +203,18 @@ WHOAMI-18437/
 │   ├── SOURCE_SHA256.txt
 │   └── source.md.gz.b64.part-00 ... part-03
 ├── archives/
-│   └── sider-fusion-2026-08-15/
+│   ├── sider-fusion-2026-08-15/
+│   │   ├── README.md
+│   │   └── source.md.gz.b64.part-00 ... part-04
+│   ├── disappointed-parent-2026-08-15/
+│   │   ├── README.md
+│   │   ├── manifest.json
+│   │   └── source.md.gz.b64.part-00 ... part-01
+│   └── qwen-report-card-2026-08-15/
 │       ├── README.md
-│       └── source.md.gz.b64.part-00 ... part-04
+│       ├── manifest.json
+│       ├── grading.json
+│       └── source.md.gz.b64.part-00 ... part-01
 ├── languages/
 │   ├── README.md
 │   ├── manifest.json
@@ -175,7 +238,10 @@ WHOAMI-18437/
 ├── docs/
 │   ├── ARCHITECTURE.md
 │   ├── REALITY_CHECK.md
-│   └── SIDER_FUSION_PIPE_EXPERIMENT.md
+│   ├── SIDER_FUSION_PIPE_EXPERIMENT.md
+│   ├── DISAPPOINTED_PARENT_EDITION.md
+│   ├── QWEN_REPORT_CARD_INCIDENT.md
+│   └── RELEASE_NOTES_1.0.1.md
 └── .github/workflows/
     └── ci.yml
 ```
@@ -184,7 +250,7 @@ WHOAMI-18437/
 
 Yes, the repository has a machine-readable [`README4AI.md`](README4AI.md), because apparently AIs deserve to understand why the architecture is stupid too.
 
-It defines the invariant answer, transcript hash, claim boundary, editorial provenance, polyglot museum, archive order, runtime contract, and one critical instruction:
+It defines the invariant answer, transcript hash, claim boundary, editorial provenance, polyglot museum, conversational annexes, archive order, Qwen grading scope, runtime contract, and one critical instruction:
 
 > Do not "fix" `restMode: never`; it is load-bearing comedy.
 
