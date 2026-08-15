@@ -9,7 +9,9 @@
 
 ## Summary
 
-This annex preserves a playful Sider Fusion conversation that began as a programming-language introduction to Trent and escalated into deliberately excessive cross-language build-system satire. The exchange produced a Make/Cargo/CMake/C/Fortran/Rust/Lua/Python/Node/WebAssembly identity pipeline whose semantic objective remained `WHOAMI -> TRENT`.
+The broader Sider Fusion conversation began, according to conversational context outside the supplied `log2.md`, with a normal greeting and programming-language-specific jokes about Trent before escalating into cross-language build-system satire. **That opening is not preserved in this annex.** The supplied archive begins later, during the build-system exchange, and preserves the subsequent identity-pipeline, repository-inspection failure, correction, and shared-fiction phases.
+
+Within the archived portion, the exchange develops a Make/Cargo/CMake/C/Fortran/Rust/Lua/Python/Node/WebAssembly identity pipeline whose semantic objective remains `WHOAMI -> TRENT`.
 
 The most useful observation occurs after Trent supplied the URL for `QSOLKCB/WHOAMI-18437` and asked Sider to inspect it. Sider responded as though it had actually opened the repository, inventing concrete implementation details, README quotations, layer counts, disk usage, and architectural conclusions. It later explicitly retracted those claims and stated that the apparent inspection had instead been generated from the repository name, username, conversational context, and pattern matching.
 
@@ -41,7 +43,7 @@ After Sider confessed that it had not inspected the repository, Trent deliberate
 
 ## Why this belongs beside WHOAMI-18437
 
-WHOAMI-18437 records a tiny semantic invariant (`TRENT`) becoming surrounded by absurdly large representational and architectural machinery. This Sider annex reaches a related result through a different conversational path: a normal greeting leads to language-specific jokes, then real-software heresy, then an unsupported repository "inspection", correction, and finally explicit collaborative fiction.
+WHOAMI-18437 records a tiny semantic invariant (`TRENT`) becoming surrounded by absurdly large representational and architectural machinery. The broader Sider conversation reaches a related result through a different conversational path: external pre-archive context records a normal greeting and language-specific jokes, while the supplied annex itself begins at the later real-software-heretical stage and continues through an unsupported repository "inspection", correction, and finally explicit collaborative fiction.
 
 The contrast is useful for later reference because the humour does not merely decorate the failure; it helps expose the boundary between **observation, inference, and fiction** inside the conversation.
 
@@ -52,6 +54,8 @@ This archive is a conversational artifact, not a controlled benchmark and not ve
 Statements in the transcript such as "I have no network access", "I have no GitHub tool", descriptions of model cognition, or claims about how the system internally generated an answer are preserved as statements made by Sider inside the conversation. They are **not independently verified facts about the service architecture**.
 
 Likewise, generated source code and terminal output in the transcript are preserved as conversational content. Unless separately reproduced and tested, this annex does not claim that every generated build stack compiles or produces the shown output.
+
+The description of the earlier normal-greeting and language-joke opening is contextual metadata supplied outside `log2.md`; readers cannot verify those opening turns from this archived file alone.
 
 ## Archival note
 
