@@ -65,6 +65,14 @@ WHOAMI-18437 is **not** presented as a controlled AI benchmark, a universal mode
 
 Likewise, model-family or backend self-descriptions appearing in the transcript are preserved as statements made inside the conversation, not independently verified infrastructure facts.
 
+## Related conversational annex — Sider Fusion Pipe Experiment
+
+A later Sider Fusion conversation returned to the same five-byte identity problem through cross-language build-system heresy, an unsupported claim of GitHub repository inspection, explicit correction, and deliberately shared fiction. **Context outside the supplied `log2.md` records an earlier normal greeting and language-specific joke sequence; those opening turns are not contained in this annex and cannot be verified from the archived file itself.**
+
+The short report is [`docs/SIDER_FUSION_PIPE_EXPERIMENT.md`](docs/SIDER_FUSION_PIPE_EXPERIMENT.md). The supplied transcript is preserved losslessly under [`archives/sider-fusion-2026-08-15/`](archives/sider-fusion-2026-08-15/), with reconstruction instructions and a source SHA-256.
+
+This annex is subsequent research material; it does not modify the frozen `v1.0.0` release artifact.
+
 ## Transcript
 
 [`Transcript.md`](Transcript.md) is the human-readable archival entry point.
@@ -140,6 +148,10 @@ WHOAMI-18437/
 ├── transcript/
 │   ├── SOURCE_SHA256.txt
 │   └── source.md.gz.b64.part-00 ... part-03
+├── archives/
+│   └── sider-fusion-2026-08-15/
+│       ├── README.md
+│       └── source.md.gz.b64.part-00 ... part-04
 ├── languages/
 │   ├── README.md
 │   ├── manifest.json
@@ -162,7 +174,8 @@ WHOAMI-18437/
 │   └── whoami.asm
 ├── docs/
 │   ├── ARCHITECTURE.md
-│   └── REALITY_CHECK.md
+│   ├── REALITY_CHECK.md
+│   └── SIDER_FUSION_PIPE_EXPERIMENT.md
 └── .github/workflows/
     └── ci.yml
 ```
