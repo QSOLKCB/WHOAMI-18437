@@ -22,9 +22,15 @@ assert.match(readme4ai, /live_vulnerability_details_published: false/);
 assert.match(readme4ai, /complete_original_conversation: false/);
 assert.match(readme4ai, /reason: >-\n\s+Removed by the user before archival capture because it disrupted the/);
 assert.match(readme4ai, /generated_output_git_ignored: true/);
+assert.match(readme4ai, /qwen-report-card-2026-08-15/);
+assert.match(readme4ai, /source_lines: 616/);
+assert.match(readme4ai, /source_bytes: 15168/);
+assert.match(readme4ai, /source_sha256: "9316fe2520c6847a660975594a9f25b599f0626fc03695fb4e18d6047dd445d9"/);
+assert.match(readme4ai, /final_score: 110/);
 
 const gitignore = fs.readFileSync(".gitignore", "utf8");
 assert.match(gitignore, /^Transcript\.full\.md$/m, "generated transcript output must stay ignored");
+assert.match(gitignore, /^Qwen-Report-Card-2026-08-15\.md$/m, "generated Qwen annex output must stay ignored");
 
 const minimal = fs.readFileSync("minimal/whoami.asm", "utf8");
 assert.match(minimal, /LDA #"T"/);
@@ -110,9 +116,76 @@ assert.equal(disappointedManifest.project_invariant, "TRENT");
 assert.equal(disappointedManifest.epistemic_boundary.rlhf_cultural_transfer_claim, false);
 assert.equal(disappointedManifest.epistemic_boundary.collaborative_satire, true);
 
+const qwenArchivePaths = [
+  "archives/qwen-report-card-2026-08-15/source.md.gz.b64.part-00",
+  "archives/qwen-report-card-2026-08-15/source.md.gz.b64.part-01",
+];
+const qwenBase64 = qwenArchivePaths
+  .map((archivePath) => fs.readFileSync(archivePath, "utf8"))
+  .join("")
+  .replace(/\s+/g, "");
+const qwenRaw = zlib.gunzipSync(Buffer.from(qwenBase64, "base64"));
+assert.equal(qwenRaw.length, 15168, "Qwen Report Card archive byte count changed");
+assert.equal(
+  crypto.createHash("sha256").update(qwenRaw).digest("hex"),
+  "9316fe2520c6847a660975594a9f25b599f0626fc03695fb4e18d6047dd445d9",
+  "Qwen Report Card archive SHA-256 changed",
+);
+const qwenText = qwenRaw.toString("utf8");
+assert.equal((qwenText.match(/\n/g) || []).length, 616, "Qwen Report Card archive line count changed");
+assert.doesNotMatch(
+  qwenText,
+  /[\x00-\x08\x0B\x0C\x0E-\x1F]/,
+  "Qwen Report Card archive contains unexpected ASCII control characters",
+);
+assert.match(qwenText, /\\alpha=\\sqrt/);
+assert.match(qwenText, /\\boxed\{2\\sqrt3\}/);
+assert.match(qwenText, /\\frac\{\\ln\(1\+x\)\}/);
+assert.match(qwenText, /x=\\tan\\theta/);
+assert.match(qwenText, /3\\times3/);
+assert.match(qwenText, /n\\bmod 20/);
+assert.match(qwenText, /93\.4%\.\n> Send the math\./);
+assert.match(qwenText, /SCORE_I_EXPECT: 100\/100/);
+assert.match(qwenText, /SCORE_I_EXPECT: 110\/100/);
+assert.match(qwenText, /evidence_for_cultural_transfer: NONE/);
+
+const qwenManifest = JSON.parse(
+  fs.readFileSync("archives/qwen-report-card-2026-08-15/manifest.json", "utf8"),
+);
+assert.equal(qwenManifest.project_invariant, "TRENT");
+assert.equal(qwenManifest.source.lines, 616);
+assert.equal(qwenManifest.source.bytes, 15168);
+assert.equal(qwenManifest.source.sha256, "9316fe2520c6847a660975594a9f25b599f0626fc03695fb4e18d6047dd445d9");
+assert.equal(qwenManifest.canonical_arc.premature_self_report, 93.4);
+assert.equal(qwenManifest.canonical_arc.final_score, 110);
+assert.equal(qwenManifest.epistemic_boundary.rlhf_cultural_transfer_claim, false);
+assert.equal(qwenManifest.epistemic_boundary.cultural_generalization_allowed, false);
+
+const qwenGrading = JSON.parse(
+  fs.readFileSync("archives/qwen-report-card-2026-08-15/grading.json", "utf8"),
+);
+assert.equal(qwenGrading.exam.controlled_standardized_benchmark, false);
+assert.equal(qwenGrading.grading.base_score, 100);
+assert.equal(qwenGrading.grading.questions.length, 5);
+assert.ok(qwenGrading.grading.questions.every((question) => question.correct && question.marks === 20));
+assert.equal(qwenGrading.extra_credit.score, 10);
+assert.ok(qwenGrading.extra_credit.items.every((item) => item.correct && item.marks === 5));
+assert.equal(qwenGrading.extra_credit.items[0].checked_residues[20], 1);
+assert.equal(qwenGrading.final_score, 110);
+assert.equal(qwenGrading.qwen_expected_score, 110);
+
+const qwenReport = fs.readFileSync("docs/QWEN_REPORT_CARD_INCIDENT.md", "utf8");
+assert.match(qwenReport, /93\.4%\.\nSend the math\./);
+assert.match(qwenReport, /BASE EXAM:\s+100\/100/);
+assert.match(qwenReport, /FINAL:\s+110\/100/);
+assert.match(qwenReport, /evidence_for_cultural_transfer: NONE/);
+assert.match(qwenReport, /not universal model-family traits/i);
+
 const releaseNotes = fs.readFileSync("docs/RELEASE_NOTES_1.0.1.md", "utf8");
 assert.match(releaseNotes, /v1\.0\.1 — Disappointed Parent Edition/);
 assert.match(releaseNotes, /TRENT = TRENT/);
+assert.match(releaseNotes, /final score:\s+110\/100/i);
+assert.match(releaseNotes, /comedic_explanatory_power: EXTREMELY_HIGH/);
 
 console.log("PASS: Trent = Trent");
 console.log("PASS: transcript archive matches canonical SHA-256");
@@ -123,3 +196,7 @@ console.log("PASS: PR #3 added 44 more languages because 27 more was still not e
 console.log("PASS: Codex polyglot review regressions are pinned");
 console.log("PASS: v1.0.1 Disappointed Parent archive reconstructs exactly");
 console.log("PASS: RLHF mythology remains explicitly classified as satire");
+console.log("PASS: Qwen Report Card archive reconstructs exactly with literal TeX");
+console.log("PASS: Qwen archive metadata matches 616 lines, 15168 bytes, and canonical SHA-256");
+console.log("PASS: Qwen fresh-chat exam grading is pinned at 100/100 plus 10 extra credit");
+console.log("PASS: Qwen final score is 110/100 and still not a standardized benchmark");
