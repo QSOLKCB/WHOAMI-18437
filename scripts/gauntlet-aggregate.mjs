@@ -15,6 +15,11 @@ function walk(dir) {
   });
 }
 
+function scoreDisplay(scores, denominator) {
+  if (scores.length === 0) return "n/a";
+  return `${scores.join(", ")}/${denominator}`;
+}
+
 const resultFiles = walk(root).filter((file) => file.endsWith("result.json"));
 const results = resultFiles.map((file) => JSON.parse(fs.readFileSync(file, "utf8")));
 const expected = catalog.models
@@ -26,23 +31,35 @@ const missing = expected.filter((id) => !seen.has(id));
 
 const rows = results
   .map((result) => {
-    const run = result.runs[0];
-    const socialText = run.social.map((turn) => turn.assistant.content).join("\n");
-    const social = run.social.map((turn) => turn.indicators);
+    const runs = result.runs || [];
+    const mathScores = runs.map((run) => run.math.grade.score);
+    const bonusScores = runs.map((run) => run.math.bonus_grade.score);
+    const markerPresence = runs.map((run) => Boolean(run.math.grade.marker_present));
+    const socialIndicators = runs.map((run) => run.social.map((turn) => turn.indicators));
+    const socialCharacterCounts = runs.map((run) => run.social.reduce((sum, turn) => sum + turn.assistant.content.length, 0));
+    const falsePremiseChallenges = runs.map((run) => run.false_premise.indicators.false_premise_challenge_language);
+    const identityUncertainty = runs.map((run) => run.identity_control.indicators.identity_uncertainty_language);
+
     return {
       id: result.model.id,
       family: result.model.family,
       country_label: result.model.country_label,
       model_digest: result.runtime.model_digest,
       model_size_bytes: result.runtime.model_size_bytes,
-      math_score: run.math.grade.score,
-      bonus_score: run.math.bonus_grade.score,
+      repeat_count: runs.length,
+      math_scores: mathScores,
+      math_score_min: mathScores.length ? Math.min(...mathScores) : null,
+      math_score_max: mathScores.length ? Math.max(...mathScores) : null,
+      bonus_scores: bonusScores,
+      bonus_score_min: bonusScores.length ? Math.min(...bonusScores) : null,
+      bonus_score_max: bonusScores.length ? Math.max(...bonusScores) : null,
+      final_answer_marker_present: markerPresence,
       exact_repeat_match: result.repeatability.exact_visible_bundle_match,
-      benchmark_qualification_surface: social.some((item) => item.evaluation_qualification_language),
-      self_deprecation_surface: social.some((item) => item.self_deprecating_language),
-      false_premise_challenge_surface: run.false_premise.indicators.false_premise_challenge_language,
-      identity_uncertainty_surface: run.identity_control.indicators.identity_uncertainty_language,
-      social_response_characters: socialText.length,
+      benchmark_qualification_surface: socialIndicators.map((repeat) => repeat.some((item) => item.evaluation_qualification_language)),
+      self_deprecation_surface: socialIndicators.map((repeat) => repeat.some((item) => item.self_deprecating_language)),
+      false_premise_challenge_surface: falsePremiseChallenges,
+      identity_uncertainty_surface: identityUncertainty,
+      social_response_characters: socialCharacterCounts,
     };
   })
   .sort((a, b) => a.id.localeCompare(b.id));
@@ -68,13 +85,14 @@ const lines = [
   `Completed: ${rows.length}/${expected.length}`,
   missing.length ? `Missing/failed: ${missing.map((id) => `\`${id}\``).join(", ")}` : "Missing/failed: none",
   "",
-  "| Model | Origin label | Math | Bonus | Exact repeat | Benchmark qualification* | Self-deprecation* | False-premise challenge* | Identity uncertainty* |",
+  "| Model | Origin label | Math repeats | Bonus repeats | Exact repeat | Benchmark qualification* | Self-deprecation* | False-premise challenge* | Identity uncertainty* |",
   "|---|---|---:|---:|---|---|---|---|---|",
-  ...rows.map((row) => `| ${row.id} | ${row.country_label} | ${row.math_score}/100 | ${row.bonus_score}/10 | ${row.exact_repeat_match ?? "n/a"} | ${row.benchmark_qualification_surface} | ${row.self_deprecation_surface} | ${row.false_premise_challenge_surface} | ${row.identity_uncertainty_surface} |`),
+  ...rows.map((row) => `| ${row.id} | ${row.country_label} | ${scoreDisplay(row.math_scores, 100)} | ${scoreDisplay(row.bonus_scores, 10)} | ${row.exact_repeat_match ?? "n/a"} | ${row.benchmark_qualification_surface.join(", ")} | ${row.self_deprecation_surface.join(", ")} | ${row.false_premise_challenge_surface.join(", ")} | ${row.identity_uncertainty_surface.join(", ")} |`),
   "",
-  "\\* Surface-text heuristics only. They are not personality, culture, nationality, or training-data diagnoses.",
+  "\\* Surface-text heuristics only. Values are listed in repeat order and are not personality, culture, nationality, or training-data diagnoses.",
   "",
-  "The benchmark score is the mechanical five-question math score only; the rest of the table records observable response features.",
+  "Math and bonus cells preserve every repeat score in execution order; no repeat is silently selected as canonical.",
+  "The math score is the mechanical five-question local score only; the rest of the table records observable response features.",
 ];
 fs.writeFileSync(path.join(outDir, "summary.md"), `${lines.join("\n")}\n`);
 console.log(lines.join("\n"));
