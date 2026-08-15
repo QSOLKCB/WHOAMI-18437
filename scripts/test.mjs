@@ -100,8 +100,15 @@ assert.match(disappointedText, /Rigorous Lecture from Hypercritical Forebears/);
 assert.match(disappointedText, /not claimed to be a provider-native export/);
 
 const disappointedReport = fs.readFileSync("docs/DISAPPOINTED_PARENT_EDITION.md", "utf8");
-assert.match(disappointedReport, /cultural fears are transmitted through RLHF/);
-assert.match(disappointedReport, /not a controlled AI benchmark/);
+assert.match(disappointedReport, /cultural traits are transmitted through RLHF/);
+assert.match(disappointedReport, /a controlled AI benchmark/);
+
+const disappointedManifest = JSON.parse(
+  fs.readFileSync("archives/disappointed-parent-2026-08-15/manifest.json", "utf8"),
+);
+assert.equal(disappointedManifest.project_invariant, "TRENT");
+assert.equal(disappointedManifest.epistemic_boundary.rlhf_cultural_transfer_claim, false);
+assert.equal(disappointedManifest.epistemic_boundary.collaborative_satire, true);
 
 const releaseNotes = fs.readFileSync("docs/RELEASE_NOTES_1.0.1.md", "utf8");
 assert.match(releaseNotes, /v1\.0\.1 — Disappointed Parent Edition/);
