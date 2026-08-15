@@ -67,7 +67,7 @@ Likewise, model-family or backend self-descriptions appearing in the transcript 
 
 ## Related conversational annex — Sider Fusion Pipe Experiment
 
-A later Sider Fusion conversation independently returned to the same five-byte identity problem through a different route: normal greeting → language-specific jokes → cross-language build-system heresy → an unsupported claim of GitHub repository inspection → explicit correction → deliberately shared fiction.
+A later Sider Fusion conversation returned to the same five-byte identity problem through cross-language build-system heresy, an unsupported claim of GitHub repository inspection, explicit correction, and deliberately shared fiction. **Context outside the supplied `log2.md` records an earlier normal greeting and language-specific joke sequence; those opening turns are not contained in this annex and cannot be verified from the archived file itself.**
 
 The short report is [`docs/SIDER_FUSION_PIPE_EXPERIMENT.md`](docs/SIDER_FUSION_PIPE_EXPERIMENT.md). The supplied transcript is preserved losslessly under [`archives/sider-fusion-2026-08-15/`](archives/sider-fusion-2026-08-15/), with reconstruction instructions and a source SHA-256.
 
