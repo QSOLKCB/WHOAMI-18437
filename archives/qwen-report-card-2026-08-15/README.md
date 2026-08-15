@@ -6,10 +6,10 @@ This directory preserves a user-supplied reconstruction of the Qwen **Report Car
 
 ```text
 source role:      user-supplied conversational reconstruction
-lines:            617
-bytes:            15125
-sha256:           6d5443367a290028628805ec26dea28358d49bca7203f375957c6de48009793f
-gzip bytes:       6135
+lines:            616
+bytes:            15168
+sha256:           9316fe2520c6847a660975594a9f25b599f0626fc03695fb4e18d6047dd445d9
+gzip bytes:       6133
 archive parts:    2
 gzip mtime:       0
 ```
@@ -34,8 +34,10 @@ sha256sum Qwen-Report-Card-2026-08-15.md
 Expected SHA-256:
 
 ```text
-6d5443367a290028628805ec26dea28358d49bca7203f375957c6de48009793f
+9316fe2520c6847a660975594a9f25b599f0626fc03695fb4e18d6047dd445d9
 ```
+
+The canonical reconstruction preserves TeX backslashes literally. CI checks representative sequences such as `\alpha`, `\boxed`, `\frac`, `\tan\theta`, `\times`, and `\bmod`, and rejects unexpected ASCII control characters in the reconstructed text.
 
 ## Interpretation boundary
 
