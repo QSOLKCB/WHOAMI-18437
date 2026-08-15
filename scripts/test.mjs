@@ -1,14 +1,19 @@
 import { execFileSync } from "node:child_process";
 import assert from "node:assert/strict";
+import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import zlib from "node:zlib";
 
 const output = execFileSync(process.execPath, ["scripts/whoami.mjs", "--quiet"], {
   encoding: "utf8",
 }).trim();
 
 assert.equal(output, "TRENT", "identity invariant changed");
+
+const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
+assert.equal(pkg.version, "1.0.1", "Disappointed Parent Edition version drifted");
 
 const readme4ai = fs.readFileSync("README4AI.md", "utf8");
 assert.match(readme4ai, /invariant_answer: "TRENT"/);
@@ -75,6 +80,40 @@ try {
   fs.rmSync(reconstructed, { force: true });
 }
 
+const disappointedArchivePaths = [
+  "archives/disappointed-parent-2026-08-15/source.md.gz.b64.part-00",
+  "archives/disappointed-parent-2026-08-15/source.md.gz.b64.part-01",
+];
+const disappointedBase64 = disappointedArchivePaths
+  .map((archivePath) => fs.readFileSync(archivePath, "utf8"))
+  .join("")
+  .replace(/\s+/g, "");
+const disappointedRaw = zlib.gunzipSync(Buffer.from(disappointedBase64, "base64"));
+assert.equal(disappointedRaw.length, 11645, "Disappointed Parent archive byte count changed");
+assert.equal(
+  crypto.createHash("sha256").update(disappointedRaw).digest("hex"),
+  "478fd49df779559587b186f65c73808b915d8a0fde4ccf3a605cd0579b639cbc",
+  "Disappointed Parent archive SHA-256 changed",
+);
+const disappointedText = disappointedRaw.toString("utf8");
+assert.match(disappointedText, /Rigorous Lecture from Hypercritical Forebears/);
+assert.match(disappointedText, /not claimed to be a provider-native export/);
+
+const disappointedReport = fs.readFileSync("docs/DISAPPOINTED_PARENT_EDITION.md", "utf8");
+assert.match(disappointedReport, /cultural traits are transmitted through RLHF/);
+assert.match(disappointedReport, /a controlled AI benchmark/);
+
+const disappointedManifest = JSON.parse(
+  fs.readFileSync("archives/disappointed-parent-2026-08-15/manifest.json", "utf8"),
+);
+assert.equal(disappointedManifest.project_invariant, "TRENT");
+assert.equal(disappointedManifest.epistemic_boundary.rlhf_cultural_transfer_claim, false);
+assert.equal(disappointedManifest.epistemic_boundary.collaborative_satire, true);
+
+const releaseNotes = fs.readFileSync("docs/RELEASE_NOTES_1.0.1.md", "utf8");
+assert.match(releaseNotes, /v1\.0\.1 — Disappointed Parent Edition/);
+assert.match(releaseNotes, /TRENT = TRENT/);
+
 console.log("PASS: Trent = Trent");
 console.log("PASS: transcript archive matches canonical SHA-256");
 console.log("PASS: generated transcript reconstruction is git-ignored");
@@ -82,3 +121,5 @@ console.log("PASS: editorial cut provenance is explicit");
 console.log("PASS: 71 polyglot exhibits still return TRENT");
 console.log("PASS: PR #3 added 44 more languages because 27 more was still not enough");
 console.log("PASS: Codex polyglot review regressions are pinned");
+console.log("PASS: v1.0.1 Disappointed Parent archive reconstructs exactly");
+console.log("PASS: RLHF mythology remains explicitly classified as satire");
