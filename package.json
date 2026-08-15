@@ -1,6 +1,6 @@
 {
   "name": "whoami-18437",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "description": "Executable software satire: 18,437 tokens of orchestration to return TRENT.",
@@ -12,6 +12,8 @@
   "scripts": {
     "whoami": "node scripts/whoami.mjs",
     "transcript:extract": "node scripts/extract-transcript.mjs",
-    "test": "node scripts/test.mjs"
+    "gauntlet:plan": "node scripts/gauntlet-plan.mjs core",
+    "gauntlet:test": "node scripts/test-gauntlet.mjs",
+    "test": "node scripts/test.mjs && node scripts/test-gauntlet.mjs"
   }
 }

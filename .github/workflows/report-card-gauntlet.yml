@@ -1,0 +1,256 @@
+name: Report Card Gauntlet
+
+on:
+  workflow_dispatch:
+    inputs:
+      tier:
+        description: Model tier to run
+        required: true
+        default: core
+        type: choice
+        options:
+          - core
+          - heavy
+          - all
+      model_id:
+        description: Optional exact model id from gauntlet/models.json
+        required: false
+        default: ''
+        type: string
+      repeats:
+        description: Fresh repeat count for exact-response comparison
+        required: true
+        default: '2'
+        type: choice
+        options:
+          - '1'
+          - '2'
+  pull_request:
+    paths:
+      - '.github/workflows/report-card-gauntlet.yml'
+      - 'gauntlet/**'
+      - 'scripts/gauntlet-*.mjs'
+      - 'scripts/report-card-gauntlet.mjs'
+      - 'scripts/test-gauntlet.mjs'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: report-card-gauntlet-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Existing WHOAMI regression suite
+        run: npm test
+      - name: Validate gauntlet contracts
+        run: |
+          node --check scripts/gauntlet-plan.mjs
+          node --check scripts/gauntlet-grading.mjs
+          node --check scripts/report-card-gauntlet.mjs
+          node --check scripts/gauntlet-aggregate.mjs
+          node --check scripts/test-gauntlet.mjs
+          node scripts/test-gauntlet.mjs
+          node scripts/gauntlet-plan.mjs core >/tmp/core-matrix.txt
+          node scripts/gauntlet-plan.mjs heavy >/tmp/heavy-matrix.txt
+          grep -q 'qwen3-8b' /tmp/core-matrix.txt
+          grep -q 'mistral-nemo-12b' /tmp/core-matrix.txt
+          grep -q 'gpt-oss-20b' /tmp/heavy-matrix.txt
+
+  prepare:
+    if: github.event_name == 'workflow_dispatch'
+    needs: validate
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - id: plan
+        name: Build isolated model matrix
+        env:
+          TIER: ${{ inputs.tier }}
+          MODEL_ID: ${{ inputs.model_id }}
+        run: |
+          node scripts/gauntlet-plan.mjs "$TIER" "$MODEL_ID" >> "$GITHUB_OUTPUT"
+
+  run-model:
+    if: github.event_name == 'workflow_dispatch'
+    needs: prepare
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    continue-on-error: ${{ matrix.experimental }}
+    env:
+      OLLAMA_VERSION: 0.32.5
+      OLLAMA_HOST: 127.0.0.1:11434
+      OLLAMA_BASE_URL: http://127.0.0.1:11434
+      OLLAMA_MAX_LOADED_MODELS: '1'
+      OLLAMA_NUM_PARALLEL: '1'
+      OLLAMA_KEEP_ALIVE: 5m
+      GAUNTLET_SEED: '18437'
+      GAUNTLET_REPEATS: ${{ inputs.repeats }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Create result directory
+        run: mkdir -p "results/${{ matrix.id }}"
+
+      - name: Runner preflight receipt
+        shell: bash
+        run: |
+          {
+            echo "model_id=${{ matrix.id }}"
+            echo "ollama_model=${{ matrix.ollama }}"
+            echo "tier=${{ matrix.tier }}"
+            echo "experimental=${{ matrix.experimental }}"
+            echo "expected_download_gb=${{ matrix.expected_download_gb }}"
+            echo
+            echo '--- uname ---'
+            uname -a
+            echo
+            echo '--- cpu ---'
+            lscpu
+            echo
+            echo '--- memory ---'
+            free -h
+            echo
+            echo '--- disk before cleanup ---'
+            df -h
+          } | tee "results/${{ matrix.id }}/runner-preflight.txt"
+
+      - name: Reclaim runner disk for heavy tier
+        if: matrix.tier == 'heavy'
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /opt/hostedtoolcache/CodeQL || true
+          docker system prune -af || true
+          echo '--- disk after cleanup ---' | tee -a "results/${{ matrix.id }}/runner-preflight.txt"
+          df -h | tee -a "results/${{ matrix.id }}/runner-preflight.txt"
+
+      - name: Install pinned Ollama
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL \
+            "https://github.com/ollama/ollama/releases/download/v${OLLAMA_VERSION}/install.sh" \
+            -o /tmp/ollama-install.sh
+          echo '25f64b810b947145095956533e1bdf56eacea2673c55a7e586be4515fc882c9f  /tmp/ollama-install.sh' | sha256sum -c -
+          OLLAMA_VERSION="$OLLAMA_VERSION" sh /tmp/ollama-install.sh
+          ollama --version | tee "results/${{ matrix.id }}/ollama-version.txt"
+
+      - name: Launch controlled loopback Ollama
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo systemctl stop ollama.service || true
+          nohup env \
+            OLLAMA_HOST="$OLLAMA_HOST" \
+            OLLAMA_MAX_LOADED_MODELS="$OLLAMA_MAX_LOADED_MODELS" \
+            OLLAMA_NUM_PARALLEL="$OLLAMA_NUM_PARALLEL" \
+            OLLAMA_KEEP_ALIVE="$OLLAMA_KEEP_ALIVE" \
+            ollama serve >"results/${{ matrix.id }}/ollama.log" 2>&1 &
+          echo $! >"results/${{ matrix.id }}/ollama.pid"
+          for attempt in $(seq 1 60); do
+            if curl -fsS "$OLLAMA_BASE_URL/api/tags" >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          tail -n 200 "results/${{ matrix.id }}/ollama.log" || true
+          exit 1
+
+      - name: Pull isolated model
+        shell: bash
+        env:
+          MODEL: ${{ matrix.ollama }}
+        run: |
+          set -euo pipefail
+          ollama pull "$MODEL" 2>&1 | tee "results/${{ matrix.id }}/pull.log"
+          curl -fsS "$OLLAMA_BASE_URL/api/tags" > "results/${{ matrix.id }}/ollama-tags.json"
+          free -h > "results/${{ matrix.id }}/memory-after-pull.txt"
+          df -h > "results/${{ matrix.id }}/disk-after-pull.txt"
+
+      - name: Run deterministic Report Card Gauntlet
+        env:
+          MODEL: ${{ matrix.ollama }}
+          MODEL_ID: ${{ matrix.id }}
+          FAMILY: ${{ matrix.family }}
+          DEVELOPER_LABEL: ${{ matrix.developer_label }}
+          COUNTRY_LABEL: ${{ matrix.country_label }}
+        run: |
+          node scripts/report-card-gauntlet.mjs \
+            --model "$MODEL" \
+            --model-id "$MODEL_ID" \
+            --family "$FAMILY" \
+            --developer-label "$DEVELOPER_LABEL" \
+            --country-label "$COUNTRY_LABEL" \
+            --repeats "$GAUNTLET_REPEATS" \
+            --out "results/$MODEL_ID"
+
+      - name: Final diagnostics
+        if: always()
+        shell: bash
+        run: |
+          ollama ps || true
+          free -h || true
+          df -h || true
+          tail -n 200 "results/${{ matrix.id }}/ollama.log" || true
+
+      - name: Upload model receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-card-${{ matrix.id }}
+          path: results/${{ matrix.id }}/
+          if-no-files-found: error
+          retention-days: 30
+
+  aggregate:
+    if: ${{ always() && github.event_name == 'workflow_dispatch' && needs.prepare.result == 'success' }}
+    needs:
+      - prepare
+      - run-model
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Download model receipts
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: report-card-*
+          path: collected
+          merge-multiple: false
+      - name: Aggregate observable results
+        env:
+          TIER: ${{ inputs.tier }}
+          MODEL_ID: ${{ inputs.model_id }}
+        run: |
+          mkdir -p gauntlet-summary
+          node scripts/gauntlet-aggregate.mjs collected gauntlet-summary "$TIER" "$MODEL_ID" | tee gauntlet-summary/console-summary.md
+          cat gauntlet-summary/summary.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload aggregate summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-card-gauntlet-summary
+          path: gauntlet-summary/
+          retention-days: 30

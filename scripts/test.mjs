@@ -13,7 +13,7 @@ const output = execFileSync(process.execPath, ["scripts/whoami.mjs", "--quiet"],
 assert.equal(output, "TRENT", "identity invariant changed");
 
 const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
-assert.equal(pkg.version, "1.0.1", "Disappointed Parent Edition version drifted");
+assert.equal(pkg.version, "1.1.0", "Report Card Gauntlet version drifted");
 
 const readme4ai = fs.readFileSync("README4AI.md", "utf8");
 assert.match(readme4ai, /invariant_answer: "TRENT"/);

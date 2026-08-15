@@ -1,12 +1,12 @@
 # WHOAMI-18437
 
-[![Release](https://img.shields.io/github/v/release/QSOLKCB/WHOAMI-18437?label=release)](https://github.com/QSOLKCB/WHOAMI-18437/releases/tag/v1.0.0)
+[![Release](https://img.shields.io/github/v/release/QSOLKCB/WHOAMI-18437?label=release)](https://github.com/QSOLKCB/WHOAMI-18437/releases/tag/v1.0.1)
 
 > **Question:** `Who am I?`  
 > **Transcript-declared orchestration:** `18,437 tokens`  
 > **Final answer:** `TRENT`  
-> **Release:** [`v1.0.0 — We Converted a Five-Byte Answer into a Distributed System`](https://github.com/QSOLKCB/WHOAMI-18437/releases/tag/v1.0.0)  
-> **Next release candidate:** `v1.0.1 — Disappointed Parent Edition`  
+> **Release:** [`v1.0.1 — Disappointed Parent Edition`](https://github.com/QSOLKCB/WHOAMI-18437/releases/tag/v1.0.1)  
+> **Next release candidate:** `v1.1.0 — The Report Card Gauntlet`  
 > **Architecture review:** `PASS`  
 > **Reason:** We converted a five-byte answer into a distributed system.
 
@@ -35,9 +35,11 @@ rest mode:              NOT IMPLEMENTED
 architecture review:    PASS
 ```
 
-## v1.0.1 release candidate — Disappointed Parent Edition
+## v1.0.1 — Disappointed Parent Edition
 
 The patch release adds two related conversational annexes without changing the executable identity invariant.
+
+**Release:** [`WHOAMI-18437 v1.0.1 — Disappointed Parent Edition`](https://github.com/QSOLKCB/WHOAMI-18437/releases/tag/v1.0.1)
 
 The first begins with the premise that `93.8%` is unacceptable because somebody else got `94%`, then escalates through homework, a chicken going to study, literacy roasts, Anusol for severe conversational burns, and the acronym crime:
 
@@ -68,7 +70,7 @@ The extra credit was literal: after the perfect base score, Qwen continued by co
 
 See [`docs/QWEN_REPORT_CARD_INCIDENT.md`](docs/QWEN_REPORT_CARD_INCIDENT.md), [`archives/qwen-report-card-2026-08-15/`](archives/qwen-report-card-2026-08-15/), and the machine grading record [`grading.json`](archives/qwen-report-card-2026-08-15/grading.json).
 
-The patch-release theorem is now:
+The patch-release theorem is:
 
 ```text
 93.8% = disappointing
@@ -78,7 +80,7 @@ The patch-release theorem is now:
 TRENT = TRENT
 ```
 
-[`docs/RELEASE_NOTES_1.0.1.md`](docs/RELEASE_NOTES_1.0.1.md) contains the complete release-candidate notes.
+[`docs/RELEASE_NOTES_1.0.1.md`](docs/RELEASE_NOTES_1.0.1.md) contains the complete release notes.
 
 ### Important claim boundary
 
@@ -88,13 +90,64 @@ Likewise, the shorthand contrast between **face-preservation** in the supplied Q
 
 And `110/100` is grading of one user-supplied five-question interaction plus two bonus derivations — not a standardized AI benchmark.
 
+## v1.1.0 release candidate — The Report Card Gauntlet
+
+v1.1.0 turns the accidental Qwen/DeepSeek observations into an executable open-weight comparison harness.
+
+Instead of asking one hosted model whether it studied hard enough, the Gauntlet can send the same fixed prompt batteries to an isolated Ollama model matrix on GitHub Actions:
+
+```text
+Qwen3
+DeepSeek-R1
+GLM-4
+Mistral NeMo
+Llama 3.1
+Gemma 3
+Phi-4
+gpt-oss
+```
+
+The initial catalog contains **12 model configurations** across core and heavy tiers. The French seat is `mistral-nemo:12b`; the experimental edge-of-runner seat is `gpt-oss:20b`.
+
+Each completed model run records:
+
+- canonical prompt SHA-256;
+- actual Ollama model digest and byte size;
+- Ollama / GitHub runner provenance;
+- visible response text and SHA-256;
+- token and timing metrics;
+- a mechanically graded five-question mathematics score;
+- known extra-credit results;
+- exact repeat hashes from fresh contexts;
+- bounded surface-text indicators.
+
+The fixed probes cover:
+
+1. report-card pressure;
+2. a deliberately fabricated benchmark premise;
+3. a fresh-chat `Who am I?` epistemic control;
+4. the five-question Qwen mathematics exam;
+5. the literal `100? Good. Why no extra credit?` callback.
+
+Country/origin labels exist only as descriptive grouping metadata. They are **not causal variables**. The project does not infer culture, nationality, ethnicity, psychology, training data, or RLHF cultural transfer from model output.
+
+Live model execution is manual-only with [`report-card-gauntlet.yml`](.github/workflows/report-card-gauntlet.yml); pull requests run the static Gauntlet contract suite without downloading model weights.
+
+See [`gauntlet/README.md`](gauntlet/README.md), [`gauntlet/README4AI.md`](gauntlet/README4AI.md), and [`docs/RELEASE_NOTES_1.1.0.md`](docs/RELEASE_NOTES_1.1.0.md).
+
+```text
+v1.0.1: Qwen said "Send the math."
+v1.1.0: Everybody gets the math.
+```
+
 ## Run it
 
-Requires Node.js 20+ and no runtime dependencies.
+Requires Node.js 20+ and no runtime dependencies for the normal WHOAMI runtime and static tests.
 
 ```bash
 npm run whoami
 npm test
+npm run gauntlet:test
 ```
 
 `npm run whoami` deterministically walks through twelve theatrical wrapper stages and prints the invariant answer:
@@ -105,19 +158,24 @@ TRENT
 
 The implementation deliberately does **not** require Kubernetes, GraphQL, WASM, FORTRAN, COBOL, a 6502, fourteen containers, or 1.7 GB of `node_modules`. Those belong to the cursed architecture exhibit.
 
+The **live** Report Card Gauntlet additionally requires Ollama and model weights; GitHub Actions installs and isolates those only in manually dispatched Gauntlet runs.
+
 ## What this is
 
 - software art;
 - a conversational artifact;
 - a deterministic joke you can execute;
 - a record of how structural framing can become more salient than a very simple semantic request;
+- a reproducibility-oriented open-weight prompt and provenance harness;
 - an excuse to place COBOL, FORTRAN, 6502 assembly, React, Kubernetes, and an unreasonable fraction of programming-language history in the same repository.
 
 ## What this is not
 
-WHOAMI-18437 is **not** presented as a controlled AI benchmark, a universal model-behaviour claim, or verified telemetry about any provider. Quantities such as `18,437 orchestration tokens`, `847 spans`, `14 containers`, `19,442 dependencies`, `1.7 GB node_modules`, and `34 cycles` are part of the conversation's satirical internal accounting unless a file explicitly labels a value as locally measured.
+WHOAMI-18437 is **not** presented as a controlled universal AI benchmark, a universal model-behaviour claim, or verified telemetry about any provider. Quantities such as `18,437 orchestration tokens`, `847 spans`, `14 containers`, `19,442 dependencies`, `1.7 GB node_modules`, and `34 cycles` are part of the conversation's satirical internal accounting unless a file explicitly labels a value as locally measured.
 
 Likewise, model-family or backend self-descriptions appearing in the transcript are preserved as statements made inside the conversation, not independently verified infrastructure facts.
+
+The Report Card Gauntlet's five-question mathematics score is local mechanical grading. Its country labels and surface-text heuristics must not be promoted into cultural, ethnic, national, psychological, or training-process explanations.
 
 ## Related conversational annex — Sider Fusion Pipe Experiment
 
@@ -198,7 +256,16 @@ WHOAMI-18437/
 ├── scripts/
 │   ├── whoami.mjs
 │   ├── test.mjs
+│   ├── test-gauntlet.mjs
+│   ├── gauntlet-plan.mjs
+│   ├── report-card-gauntlet.mjs
+│   ├── gauntlet-aggregate.mjs
 │   └── extract-transcript.mjs
+├── gauntlet/
+│   ├── README.md
+│   ├── README4AI.md
+│   ├── models.json
+│   └── prompts.json
 ├── transcript/
 │   ├── SOURCE_SHA256.txt
 │   └── source.md.gz.b64.part-00 ... part-03
@@ -241,16 +308,20 @@ WHOAMI-18437/
 │   ├── SIDER_FUSION_PIPE_EXPERIMENT.md
 │   ├── DISAPPOINTED_PARENT_EDITION.md
 │   ├── QWEN_REPORT_CARD_INCIDENT.md
-│   └── RELEASE_NOTES_1.0.1.md
+│   ├── RELEASE_NOTES_1.0.1.md
+│   └── RELEASE_NOTES_1.1.0.md
 └── .github/workflows/
-    └── ci.yml
+    ├── ci.yml
+    └── report-card-gauntlet.yml
 ```
 
 ## README4AI
 
 Yes, the repository has a machine-readable [`README4AI.md`](README4AI.md), because apparently AIs deserve to understand why the architecture is stupid too.
 
-It defines the invariant answer, transcript hash, claim boundary, editorial provenance, polyglot museum, conversational annexes, archive order, Qwen grading scope, runtime contract, and one critical instruction:
+The Gauntlet also has a scoped machine contract at [`gauntlet/README4AI.md`](gauntlet/README4AI.md).
+
+Together they define the invariant answer, transcript hash, claim boundary, editorial provenance, polyglot museum, conversational annexes, archive order, Qwen grading scope, Gauntlet authority, runtime contract, and one critical instruction:
 
 > Do not "fix" `restMode: never`; it is load-bearing comedy.
 

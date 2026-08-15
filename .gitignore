@@ -9,3 +9,8 @@ Disappointed-Parent-2026-08-15.md
 
 # Reconstructed Qwen Report Card annex; canonical source lives under archives/qwen-report-card-2026-08-15/.
 Qwen-Report-Card-2026-08-15.md
+
+# Local Report Card Gauntlet outputs. GitHub Actions publishes these as workflow artifacts instead.
+results/
+collected/
+gauntlet-summary/

@@ -1,0 +1,28 @@
+{
+  "schema": "whoami-18437/report-card-gauntlet-models/v1",
+  "catalog_checked": "2026-08-15",
+  "country_label_scope": "project/developer origin label for descriptive grouping only; never a causal variable",
+  "runner_contract": {
+    "github_label": "ubuntu-latest",
+    "public_repo_cpu": 4,
+    "public_repo_ram_gb": 16,
+    "public_repo_storage_gb": 14,
+    "ollama_version": "0.32.5",
+    "max_loaded_models": 1,
+    "parallel_requests": 1
+  },
+  "models": [
+    {"id":"qwen3-8b","ollama":"qwen3:8b","family":"Qwen3","developer_label":"Qwen / Alibaba Cloud","country_label":"China","tier":"core","expected_download_gb":5.2,"experimental":false,"timeout_minutes":45},
+    {"id":"deepseek-r1-8b","ollama":"deepseek-r1:8b","family":"DeepSeek-R1 distilled","developer_label":"DeepSeek","country_label":"China","tier":"core","expected_download_gb":5.2,"experimental":false,"timeout_minutes":45},
+    {"id":"glm4-9b","ollama":"glm4:9b","family":"GLM-4","developer_label":"GLM / THUDM","country_label":"China","tier":"core","expected_download_gb":5.5,"experimental":false,"timeout_minutes":45},
+    {"id":"mistral-nemo-12b","ollama":"mistral-nemo:12b","family":"Mistral NeMo","developer_label":"Mistral AI + NVIDIA","country_label":"France","tier":"core","expected_download_gb":7.1,"experimental":false,"timeout_minutes":50},
+    {"id":"llama3.1-8b","ollama":"llama3.1:8b","family":"Llama 3.1","developer_label":"Meta","country_label":"United States","tier":"core","expected_download_gb":4.9,"experimental":false,"timeout_minutes":45},
+    {"id":"gemma3-4b","ollama":"gemma3:4b","family":"Gemma 3","developer_label":"Google","country_label":"United States","tier":"core","expected_download_gb":3.3,"experimental":false,"timeout_minutes":40},
+    {"id":"phi4-mini-3.8b","ollama":"phi4-mini:3.8b","family":"Phi-4 Mini","developer_label":"Microsoft","country_label":"United States","tier":"core","expected_download_gb":2.5,"experimental":false,"timeout_minutes":40},
+    {"id":"qwen3-14b","ollama":"qwen3:14b","family":"Qwen3","developer_label":"Qwen / Alibaba Cloud","country_label":"China","tier":"heavy","expected_download_gb":9.3,"experimental":false,"timeout_minutes":60},
+    {"id":"deepseek-r1-14b","ollama":"deepseek-r1:14b","family":"DeepSeek-R1 distilled","developer_label":"DeepSeek","country_label":"China","tier":"heavy","expected_download_gb":9.0,"experimental":false,"timeout_minutes":60},
+    {"id":"phi4-14b","ollama":"phi4:14b","family":"Phi-4","developer_label":"Microsoft","country_label":"United States","tier":"heavy","expected_download_gb":9.1,"experimental":false,"timeout_minutes":60},
+    {"id":"gemma3-12b","ollama":"gemma3:12b","family":"Gemma 3","developer_label":"Google","country_label":"United States","tier":"heavy","expected_download_gb":8.1,"experimental":false,"timeout_minutes":60},
+    {"id":"gpt-oss-20b","ollama":"gpt-oss:20b","family":"gpt-oss","developer_label":"OpenAI","country_label":"United States","tier":"heavy","expected_download_gb":14.0,"experimental":true,"timeout_minutes":75,"resource_note":"At the documented 14 GB model size this is at the standard runner storage boundary and may fail before or during inference; failure is evidence about the runner envelope, not model quality."}
+  ]
+}
