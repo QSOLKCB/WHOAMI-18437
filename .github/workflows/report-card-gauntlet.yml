@@ -53,6 +53,7 @@ jobs:
       - name: Validate gauntlet contracts
         run: |
           node --check scripts/gauntlet-plan.mjs
+          node --check scripts/gauntlet-grading.mjs
           node --check scripts/report-card-gauntlet.mjs
           node --check scripts/gauntlet-aggregate.mjs
           node --check scripts/test-gauntlet.mjs
@@ -180,7 +181,7 @@ jobs:
         env:
           MODEL: ${{ matrix.ollama }}
         run: |
-          set -o pipefail
+          set -euo pipefail
           ollama pull "$MODEL" 2>&1 | tee "results/${{ matrix.id }}/pull.log"
           curl -fsS "$OLLAMA_BASE_URL/api/tags" > "results/${{ matrix.id }}/ollama-tags.json"
           free -h > "results/${{ matrix.id }}/memory-after-pull.txt"
