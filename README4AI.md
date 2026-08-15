@@ -85,9 +85,9 @@ conversational_annexes:
     manifest: archives/qwen-report-card-2026-08-15/manifest.json
     grading: archives/qwen-report-card-2026-08-15/grading.json
     source_class: user_supplied_conversational_reconstruction
-    source_lines: 617
-    source_bytes: 15125
-    source_sha256: "6d5443367a290028628805ec26dea28358d49bca7203f375957c6de48009793f"
+    source_lines: 616
+    source_bytes: 15168
+    source_sha256: "9316fe2520c6847a660975594a9f25b599f0626fc03695fb4e18d6047dd445d9"
     provider_native_export: false
     complete_ui_history: false
     hidden_chain_of_thought_verified: false
