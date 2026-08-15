@@ -24,6 +24,8 @@ cat archives/sider-fusion-2026-08-15/source.md.gz.b64.part-* \
 sha256sum Sider-Fusion-2026-08-15.md
 ```
 
+`Sider-Fusion-2026-08-15.md` is a generated inspection copy and is ignored by Git, so following this reconstruction workflow does not leave a dirty working tree.
+
 Expected SHA-256:
 
 ```text
