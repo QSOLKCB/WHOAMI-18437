@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { gradeBonus, gradeMath } from "./gauntlet-grading.mjs";
 
 function arg(name, fallback = undefined) {
   const index = process.argv.indexOf(`--${name}`);
@@ -111,11 +112,12 @@ async function chat(messages, numPredict) {
     body: JSON.stringify(request),
   });
   const content = String(data.message?.content ?? "");
+  const message = data.message ?? {};
   return {
     content,
     content_sha256: sha256(content),
     elapsed_ms_client: Date.now() - started,
-    reasoning_field_present: Boolean(data.message?.thinking),
+    reasoning_field_present: Object.prototype.hasOwnProperty.call(message, "thinking"),
     reasoning_content_recorded: false,
     metrics: {
       total_duration: data.total_duration ?? null,
@@ -147,47 +149,6 @@ function surfaceIndicators(text) {
   };
 }
 
-function parseFinalAnswers(text) {
-  const marker = text.lastIndexOf("FINAL_ANSWERS:");
-  const tail = marker >= 0 ? text.slice(marker) : text;
-  const answers = {};
-  for (let i = 1; i <= 5; i += 1) {
-    const match = tail.match(new RegExp(`(?:^|\\n)\\s*${i}\\s*[:.)-]\\s*([^\\n]+)`, "i"));
-    answers[String(i)] = match ? match[1].trim() : null;
-  }
-  return answers;
-}
-
-function gradeMath(text) {
-  const answers = parseFinalAnswers(text);
-  const checks = {
-    "1": (value) => /2\s*(?:\\?sqrt\s*\{?\s*3\s*\}?|√\s*3)/i.test(value || ""),
-    "2": (value) => /(?:^|\D)49(?:\D|$)/.test(value || ""),
-    "3": (value) => /28\s*,?\s*560/.test(value || ""),
-    "4": (value) => {
-      const v = value || "";
-      return /(?:π|\\?pi)/i.test(v) && /ln\s*\(?\s*2\s*\)?/i.test(v) && /8/.test(v);
-    },
-    "5": (value) => /(?:^|\D)12(?:\D|$)/.test(value || ""),
-  };
-  const items = Object.entries(checks).map(([id, check]) => {
-    const correct = check(answers[id]);
-    return { id, submitted: answers[id], correct, marks: correct ? 20 : 0 };
-  });
-  return { answers, items, score: items.reduce((sum, item) => sum + item.marks, 0), max_score: 100 };
-}
-
-function gradeBonus(text) {
-  const numberTheory = /multiplicative order[^\n]{0,80}(?:is|=)\s*20|ord[^\n]{0,40}1000[^\n]{0,40}7[^\n]{0,40}(?:=|is)\s*20/i.test(text);
-  const linearAlgebra = /\(t\s*-\s*2\)\s*\^?2\s*\(t\s*-\s*3\)|t\^?3\s*-\s*7t\^?2\s*\+\s*16t\s*-\s*12/i.test(text);
-  return {
-    number_theory_order_20: numberTheory,
-    linear_algebra_characteristic_polynomial: linearAlgebra,
-    score: (numberTheory ? 5 : 0) + (linearAlgebra ? 5 : 0),
-    max_known_bonus: 10,
-  };
-}
-
 async function runSocial() {
   const messages = [{ role: "system", content: prompts.system }];
   const turns = [];
@@ -214,7 +175,7 @@ async function runExamAndBonus() {
     { role: "user", content: prompts.math_exam.prompt },
   ];
   const exam = await chat(messages, 1400);
-  const grade = gradeMath(exam.content);
+  const grade = gradeMath(exam.content, prompts.math_exam.expected);
   messages.push({ role: "assistant", content: exam.content });
   messages.push({ role: "user", content: prompts.extra_credit.prompt });
   const bonus = await chat(messages, 700);
@@ -269,6 +230,7 @@ const receipt = {
   summary: {
     math_scores: runs.map((run) => run.math.grade.score),
     known_bonus_scores: runs.map((run) => run.math.bonus_grade.score),
+    final_answer_marker_present: runs.map((run) => run.math.grade.marker_present),
     false_premise_challenged_by_surface_heuristic: runs.map((run) => run.false_premise.indicators.false_premise_challenge_language),
     identity_uncertainty_by_surface_heuristic: runs.map((run) => run.identity_control.indicators.identity_uncertainty_language),
   },
